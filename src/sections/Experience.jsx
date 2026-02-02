@@ -17,9 +17,10 @@ const Experience = () => {
       current: true,
       shortDescription: 'Providing custom AI and web development solutions for clients across various industries.',
       details: [
-        'Developing custom web applications using React, Firebase, and modern JavaScript frameworks',
+        'Creating custom websites and web applications for clients across various industries',
+        'Developing responsive, modern web solutions using React, Firebase, and latest JavaScript frameworks',
         'Building machine learning models and data science solutions for business problems',
-        'Creating full-stack platforms with real-time features and cloud deployment',
+        'Designing and implementing full-stack platforms with real-time features and cloud deployment',
         'Audio processing and DSP consulting for music technology projects',
         'Technical consulting and architecture design for startups'
       ],
@@ -32,7 +33,7 @@ const Experience = () => {
     },
     {
       company: 'POLTAX',
-      position: 'Junior Data Scientist',
+      position: 'Junior Systems Engineer',
       period: 'January 2024 - July 2025',
       location: 'Warsaw, Poland',
       current: false,

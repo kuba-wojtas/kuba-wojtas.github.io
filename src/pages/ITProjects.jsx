@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { ExternalLink, Github, FileText, CheckCircle } from 'lucide-react';
+import { FileText, CheckCircle } from 'lucide-react';
 import { useState } from 'react';
 import Lightbox from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
@@ -17,29 +17,36 @@ const ITProjects = () => {
 
   const projects = [
     {
-      title: 'RolnictwoToMy Agricultural Marketplace',
-      subtitle: 'Full-Stack Web & Mobile Platform',
-      description: 'Comprehensive two-sided marketplace platform connecting farmers with buyers. Built with React and Firebase, featuring real-time search with autocomplete, user authentication, product filtering across multiple categories, guest browsing, and favorites system. Successfully deployed to production with Firebase Hosting and integrated subscription-based contact access model. Mobile app in development using Capacitor.',
-      additionalInfo: 'Implemented comprehensive user dashboard with profile management, offer tracking, and favorites system. Built responsive design supporting desktop and mobile browsers. Integrated phone number validation with country codes, flexible pricing options, and quality parameter filtering.',
-      tech: ['React', 'Firebase', 'Firestore', 'Tailwind CSS', 'Capacitor', 'Firebase Auth', 'Firebase Hosting'],
-      gradient: 'from-green-500 to-emerald-600',
+      title: 'Spotify Music Insights & Recommendation Engine',
+      subtitle: 'Python Application with AI Integration',
+      description: 'Python application leveraging Spotify Web API for personalized music analysis. Aggregates listening habits, genre distribution, and temporal patterns. Generates song recommendations using collaborative filtering. Features interactive dashboard with visualizations and AI-generated natural language summaries via OpenAI API.',
+      additionalInfo: 'Comprehensive music analytics platform that provides deep insights into user listening patterns. Implements collaborative filtering algorithms for personalized recommendations. Features include temporal analysis of listening habits, genre distribution visualization, top artists and tracks analysis, and AI-powered natural language summaries of user preferences.',
+      tech: ['Python', 'Spotify API', 'OpenAI API', 'Pandas', 'Streamlit', 'Plotly', 'scikit-learn'],
+      gradient: 'from-green-400 to-blue-500',
       features: [
-        'Real-time search with autocomplete',
-        'Multi-category product filtering',
-        'User authentication & authorization',
-        'Subscription-based contact system',
-        'Responsive design (desktop & mobile)',
-        'Guest browsing functionality',
-        'Favorites & wishlist system',
-        'User dashboard with profile management',
-        'Phone validation with country codes'
+        'Spotify Web API integration',
+        'Listening habit aggregation & analysis',
+        'Genre distribution visualization',
+        'Temporal pattern analysis',
+        'Collaborative filtering recommendations',
+        'Interactive Streamlit dashboard',
+        'AI-generated natural language summaries',
+        'Top artists and tracks analysis'
       ],
       links: {
-        demo: '#',
         github: '#',
       },
       screenshots: 3,
-      screenshotImages: []
+      screenshotImages: [
+        '/projects/spotify/wyniki1.png',
+        '/projects/spotify/wyniki2.png',
+        '/projects/spotify/wyniki3.png'
+      ],
+      screenshotCaptions: [
+        'Music Analysis Dashboard',
+        'Recommendation Results',
+        'Genre Distribution & Insights'
+      ]
     },
     {
       title: 'Deep Learning Music Genre Classifier',
@@ -75,36 +82,29 @@ const ITProjects = () => {
       ]
     },
     {
-      title: 'Spotify Music Insights & Recommendation Engine',
-      subtitle: 'Python Application with AI Integration',
-      description: 'Python application leveraging Spotify Web API for personalized music analysis. Aggregates listening habits, genre distribution, and temporal patterns. Generates song recommendations using collaborative filtering. Features interactive dashboard with visualizations and AI-generated natural language summaries via OpenAI API.',
-      additionalInfo: 'Comprehensive music analytics platform that provides deep insights into user listening patterns. Implements collaborative filtering algorithms for personalized recommendations. Features include temporal analysis of listening habits, genre distribution visualization, top artists and tracks analysis, and AI-powered natural language summaries of user preferences.',
-      tech: ['Python', 'Spotify API', 'OpenAI API', 'Pandas', 'Streamlit', 'Plotly', 'scikit-learn'],
-      gradient: 'from-green-400 to-blue-500',
+      title: 'RolnictwoToMy Agricultural Marketplace',
+      subtitle: 'Full-Stack Web & Mobile Platform',
+      description: 'Comprehensive two-sided marketplace platform connecting farmers with buyers. Built with React and Firebase, featuring real-time search with autocomplete, user authentication, product filtering across multiple categories, guest browsing, and favorites system. Successfully deployed to production with Firebase Hosting. Mobile app completed and available. Future plans include subscription-based contact access model.',
+      additionalInfo: 'Implemented comprehensive user dashboard with profile management, offer tracking, and favorites system. Built responsive design supporting desktop and mobile browsers. Integrated phone number validation with country codes, flexible pricing options, and quality parameter filtering.',
+      tech: ['React', 'Firebase', 'Firestore', 'Tailwind CSS', 'Firebase Auth', 'Firebase Hosting'],
+      gradient: 'from-green-500 to-emerald-600',
       features: [
-        'Spotify Web API integration',
-        'Listening habit aggregation & analysis',
-        'Genre distribution visualization',
-        'Temporal pattern analysis',
-        'Collaborative filtering recommendations',
-        'Interactive Streamlit dashboard',
-        'AI-generated natural language summaries',
-        'Top artists and tracks analysis'
+        'Real-time search with autocomplete',
+        'Multi-category product filtering',
+        'User authentication & authorization',
+        'Planned subscription-based contact system',
+        'Responsive design (desktop & mobile)',
+        'Guest browsing functionality',
+        'Favorites & wishlist system',
+        'User dashboard with profile management',
+        'Phone validation with country codes'
       ],
       links: {
+        demo: '#',
         github: '#',
       },
       screenshots: 3,
-      screenshotImages: [
-        '/projects/spotify/wyniki1.png',
-        '/projects/spotify/wyniki2.png',
-        '/projects/spotify/wyniki3.png'
-      ],
-      screenshotCaptions: [
-        'Music Analysis Dashboard',
-        'Recommendation Results',
-        'Genre Distribution & Insights'
-      ]
+      screenshotImages: []
     },
     {
       title: 'Professional Audio Equalizer Plugin',
@@ -229,57 +229,36 @@ const ITProjects = () => {
                 </div>
               </div>
 
-              {/* Screenshots */}
-              {project.screenshotImages && project.screenshotImages.length > 0 ? (
+              {/* Screenshots - only show if project has actual screenshots */}
+              {project.screenshotImages && project.screenshotImages.length > 0 && (
                 <div className="mb-8">
                   <h3 className="text-xl font-bold mb-4 gradient-text">Screenshots</h3>
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    {project.screenshotImages.map((img, imgIndex) => {
-                      console.log('Loading image:', img);
-                      return (
-                        <div key={imgIndex} className="group relative">
-                          <motion.div
-                            whileHover={{ scale: 1.05 }}
-                            className="cursor-pointer overflow-hidden rounded-lg shadow-lg hover:shadow-baby-blue/50 transition-all duration-300"
-                            onClick={() => openLightbox(project.screenshotImages, imgIndex)}
-                          >
-                            <img
-                              src={img}
-                              alt={project.screenshotCaptions?.[imgIndex] || `Screenshot ${imgIndex + 1}`}
-                              className="w-full h-48 object-cover"
-                              loading="lazy"
-                              onError={(e) => {
-                                console.error('Failed to load image:', img);
-                                e.target.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="400" height="300"%3E%3Crect fill="%23222" width="400" height="300"/%3E%3Ctext fill="%23666" x="50%25" y="50%25" text-anchor="middle" dy=".3em"%3EImage not found%3C/text%3E%3C/svg%3E';
-                              }}
-                              onLoad={() => {
-                                console.log('Successfully loaded image:', img);
-                              }}
-                            />
-                            <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                              <span className="text-white font-semibold">Click to enlarge</span>
-                            </div>
-                          </motion.div>
-                          {project.screenshotCaptions?.[imgIndex] && (
-                            <p className="text-text-secondary text-sm text-center mt-2">
-                              {project.screenshotCaptions[imgIndex]}
-                            </p>
-                          )}
-                        </div>
-                      );
-                    })}
-                  </div>
-                </div>
-              ) : (
-                <div className="mb-8">
-                  <h3 className="text-xl font-bold mb-4 gradient-text">Screenshots</h3>
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    {Array.from({ length: project.screenshots }).map((_, imgIndex) => (
-                      <div
-                        key={imgIndex}
-                        className={`h-48 rounded-lg bg-gradient-to-br ${project.gradient} flex items-center justify-center text-white font-semibold shadow-lg`}
-                      >
-                        Screenshot {imgIndex + 1}
+                    {project.screenshotImages.map((img, imgIndex) => (
+                      <div key={imgIndex} className="group relative">
+                        <motion.div
+                          whileHover={{ scale: 1.05 }}
+                          className="cursor-pointer overflow-hidden rounded-lg shadow-lg hover:shadow-baby-blue/50 transition-all duration-300"
+                          onClick={() => openLightbox(project.screenshotImages, imgIndex)}
+                        >
+                          <img
+                            src={img}
+                            alt={project.screenshotCaptions?.[imgIndex] || `Screenshot ${imgIndex + 1}`}
+                            className="w-full h-48 object-cover"
+                            loading="lazy"
+                            onError={(e) => {
+                              e.target.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="400" height="300"%3E%3Crect fill="%23222" width="400" height="300"/%3E%3Ctext fill="%23666" x="50%25" y="50%25" text-anchor="middle" dy=".3em"%3EImage not found%3C/text%3E%3C/svg%3E';
+                            }}
+                          />
+                          <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <span className="text-white font-semibold">Click to enlarge</span>
+                          </div>
+                        </motion.div>
+                        {project.screenshotCaptions?.[imgIndex] && (
+                          <p className="text-text-secondary text-sm text-center mt-2">
+                            {project.screenshotCaptions[imgIndex]}
+                          </p>
+                        )}
                       </div>
                     ))}
                   </div>
@@ -288,24 +267,6 @@ const ITProjects = () => {
 
               {/* Links */}
               <div className="flex flex-wrap gap-4">
-                {project.links.demo && (
-                  <a
-                    href={project.links.demo}
-                    className="flex items-center gap-2 px-6 py-3 bg-baby-blue hover:bg-blue-300 text-dark-bg font-semibold rounded-lg transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-baby-blue/50"
-                  >
-                    <ExternalLink className="w-5 h-5" />
-                    View Demo
-                  </a>
-                )}
-                {project.links.github && (
-                  <a
-                    href={project.links.github}
-                    className="flex items-center gap-2 px-6 py-3 bg-dark-bg hover:bg-dark-card text-text-primary hover:text-baby-blue font-semibold rounded-lg border border-white/20 transition-all duration-300 hover:scale-105"
-                  >
-                    <Github className="w-5 h-5" />
-                    View on GitHub
-                  </a>
-                )}
                 {project.links.pdf && (
                   <button
                     disabled

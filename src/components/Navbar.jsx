@@ -58,9 +58,11 @@ const Navbar = () => {
               whileHover={{ scale: 1.05 }}
               className="flex items-center space-x-2"
             >
-              <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-gradient-to-br from-baby-blue to-blue-500 flex items-center justify-center font-bold text-dark-bg text-lg md:text-xl shadow-lg shadow-baby-blue/30 group-hover:shadow-baby-blue/50 transition-shadow">
-                JW
-              </div>
+              <img
+                src="/projects/prof_blue.png"
+                alt="JW"
+                className="w-10 h-10 md:w-12 md:h-12 rounded-full object-cover border-2 border-baby-blue shadow-lg shadow-baby-blue/30 group-hover:shadow-baby-blue/50 transition-shadow"
+              />
               <span className="hidden md:block text-xl font-bold gradient-text">
                 Jakub Wojtas
               </span>

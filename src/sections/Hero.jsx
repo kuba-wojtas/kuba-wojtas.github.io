@@ -55,10 +55,12 @@ const Hero = () => {
             transition={{ duration: 0.5 }}
             className="mb-8"
           >
-            {/* Profile Image Placeholder */}
-            <div className="w-48 h-48 md:w-64 md:h-64 mx-auto rounded-full bg-gradient-to-br from-baby-blue via-blue-400 to-blue-600 flex items-center justify-center text-6xl md:text-8xl font-bold text-dark-bg shadow-2xl glow-effect mb-8">
-              JW
-            </div>
+            {/* Profile Image */}
+            <img
+              src="/projects/prof_blue.png"
+              alt="Jakub Wojtas"
+              className="w-48 h-48 md:w-64 md:h-64 mx-auto rounded-full object-cover border-4 border-baby-blue shadow-[0_0_50px_rgba(178,217,255,0.4)] hover:scale-105 transition-transform duration-500 mb-8"
+            />
           </motion.div>
         </div>
 

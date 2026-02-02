@@ -30,8 +30,7 @@ const Skills = () => {
         'Deep Learning',
         'CNN',
         'scikit-learn',
-        'Grad-CAM',
-        'GTZAN'
+        'Grad-CAM'
       ]
     },
     {

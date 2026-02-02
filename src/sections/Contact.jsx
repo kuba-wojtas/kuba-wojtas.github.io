@@ -27,23 +27,25 @@ const Contact = () => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Console log for demonstration
-    console.log('Form submitted:', formData);
+    // Create mailto link with form data
+    const subject = encodeURIComponent(`Message from ${formData.name}`);
+    const body = encodeURIComponent(`Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`);
+    const mailtoLink = `mailto:contact@jakubwojtas.com?subject=${subject}&body=${body}`;
 
-    // Simulate submission
+    window.location.href = mailtoLink;
+
     setTimeout(() => {
-      alert('Thank you for your message! (This is a demo - form data logged to console)');
       setFormData({ name: '', email: '', message: '' });
       setIsSubmitting(false);
-    }, 1000);
+    }, 500);
   };
 
   const contactInfo = [
     {
       icon: <Mail className="w-8 h-8" />,
       label: 'Email',
-      value: 'kuba.wojtas27@gmail.com',
-      href: 'mailto:kuba.wojtas27@gmail.com',
+      value: 'contact@jakubwojtas.com',
+      href: 'mailto:contact@jakubwojtas.com',
       color: 'from-baby-blue to-blue-500'
     },
     {
@@ -66,21 +68,21 @@ const Contact = () => {
     {
       name: 'GitHub',
       icon: <Github className="w-6 h-6" />,
-      url: 'https://github.com/yourusername',
+      url: 'https://github.com/wojtasjak',
       hoverColor: 'hover:text-white hover:bg-gray-800',
       glowColor: 'hover:shadow-[0_0_30px_rgba(255,255,255,0.3)]'
     },
     {
       name: 'LinkedIn',
       icon: <Linkedin className="w-6 h-6" />,
-      url: 'https://linkedin.com/in/yourusername',
+      url: 'https://www.linkedin.com/in/jakub-wojtas-220b503a5/',
       hoverColor: 'hover:text-blue-400 hover:bg-blue-500/20',
       glowColor: 'hover:shadow-[0_0_30px_rgba(59,130,246,0.5)]'
     },
     {
       name: 'Email',
       icon: <Mail className="w-6 h-6" />,
-      url: 'mailto:kuba.wojtas27@gmail.com',
+      url: 'mailto:contact@jakubwojtas.com',
       hoverColor: 'hover:text-green-400 hover:bg-green-500/20',
       glowColor: 'hover:shadow-[0_0_30px_rgba(34,197,94,0.5)]'
     }

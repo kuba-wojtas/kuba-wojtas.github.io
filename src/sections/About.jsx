@@ -14,12 +14,14 @@ const About = () => {
       degree: 'Computer Science M.Sc (Data Science)',
       period: '2024-2025',
       icon: <GraduationCap className="w-6 h-6" />,
+      completed: true,
     },
     {
       school: 'Warsaw University of Technology',
       degree: 'Mechatronics B.Eng',
       period: '2020-2024',
       icon: <GraduationCap className="w-6 h-6" />,
+      completed: true,
     },
   ];
 
@@ -48,17 +50,18 @@ const About = () => {
           >
             <div className="glass-card p-8">
               <h3 className="text-2xl font-bold mb-4 gradient-text">
-                Passionate About Data & Technology
+                About Me
               </h3>
               <p className="text-text-secondary leading-relaxed mb-4">
-                With a background in mechatronics engineering and currently pursuing a Master's in Data Science,
-                I bring a unique blend of mechanical understanding and computational expertise to solve complex problems.
+                I'm a Data Scientist and Full-Stack Developer with a Master's degree in Computer Science
+                (Data Science specialization) from the Polish-Japanese Academy of Information Technology.
+                My background in mechatronics engineering gives me a unique perspective on solving complex
+                problems that bridge theoretical knowledge with practical applications.
               </p>
               <p className="text-text-secondary leading-relaxed">
-                My passion lies in machine learning, audio processing, and full-stack development.
-                I love creating innovative solutions that bridge the gap between theoretical knowledge
-                and practical applications, whether it's building intelligent systems or crafting
-                seamless user experiences.
+                My passion lies in machine learning, audio processing, and full-stack development. I love
+                creating innovative solutions that combine AI with seamless user experiences, whether it's
+                building intelligent systems or crafting beautiful web applications.
               </p>
             </div>
           </motion.div>
@@ -89,7 +92,14 @@ const About = () => {
                         {edu.school}
                       </h4>
                       <p className="text-baby-blue mb-1">{edu.degree}</p>
-                      <p className="text-sm text-text-secondary">{edu.period}</p>
+                      <div className="flex items-center gap-2">
+                        <p className="text-sm text-text-secondary">{edu.period}</p>
+                        {edu.completed && (
+                          <span className="px-2 py-0.5 text-xs rounded-full bg-green-500/20 border border-green-400/30 text-green-400">
+                            Completed
+                          </span>
+                        )}
+                      </div>
                     </div>
                   </div>
                 </motion.div>
@@ -113,7 +123,7 @@ const About = () => {
             color="from-blue-400 to-purple-400"
           />
           <StatCard
-            end={3}
+            end={2}
             label="Years of Experience"
             icon={<Award className="w-8 h-8" />}
             color="from-purple-400 to-pink-400"

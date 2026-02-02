@@ -5,19 +5,19 @@ const Footer = () => {
   const socialLinks = [
     {
       icon: <Github className="w-5 h-5" />,
-      href: '#',
+      href: 'https://github.com/wojtasjak',
       label: 'GitHub',
       color: 'hover:text-baby-blue'
     },
     {
       icon: <Linkedin className="w-5 h-5" />,
-      href: '#',
+      href: 'https://www.linkedin.com/in/jakub-wojtas-220b503a5/',
       label: 'LinkedIn',
       color: 'hover:text-baby-blue'
     },
     {
       icon: <Mail className="w-5 h-5" />,
-      href: 'mailto:kuba.wojtas27@gmail.com',
+      href: 'mailto:contact@jakubwojtas.com',
       label: 'Email',
       color: 'hover:text-baby-blue'
     },
@@ -30,9 +30,11 @@ const Footer = () => {
           {/* Logo & Description */}
           <div className="text-center md:text-left">
             <div className="flex items-center justify-center md:justify-start space-x-2 mb-3">
-              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-baby-blue to-blue-500 flex items-center justify-center font-bold text-dark-bg shadow-lg shadow-baby-blue/30">
-                JW
-              </div>
+              <img
+                src="/projects/prof_blue.png"
+                alt="JW"
+                className="w-10 h-10 rounded-full object-cover border-2 border-baby-blue shadow-lg shadow-baby-blue/30"
+              />
               <span className="text-xl font-bold gradient-text">
                 Jakub Wojtas
               </span>
