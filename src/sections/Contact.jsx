@@ -1,44 +1,11 @@
-import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'framer-motion';
 import { useRef } from 'react';
-import { Mail, Phone, MapPin, Send, Github, Linkedin } from 'lucide-react';
+import { Mail, Phone, MapPin, Github, Linkedin } from 'lucide-react';
 
 const Contact = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
-
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    message: ''
-  });
-
-  const [isSubmitting, setIsSubmitting] = useState(false);
-
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-
-    // Create mailto link with form data
-    const subject = encodeURIComponent(`Message from ${formData.name}`);
-    const body = encodeURIComponent(`Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`);
-    const mailtoLink = `mailto:contact@jakubwojtas.com?subject=${subject}&body=${body}`;
-
-    window.location.href = mailtoLink;
-
-    setTimeout(() => {
-      setFormData({ name: '', email: '', message: '' });
-      setIsSubmitting(false);
-    }, 500);
-  };
 
   const contactInfo = [
     {
@@ -68,7 +35,7 @@ const Contact = () => {
     {
       name: 'GitHub',
       icon: <Github className="w-6 h-6" />,
-      url: 'https://github.com/wojtasjak',
+      url: 'https://github.com/kuba-wojtas',
       hoverColor: 'hover:text-white hover:bg-gray-800',
       glowColor: 'hover:shadow-[0_0_30px_rgba(255,255,255,0.3)]'
     },
@@ -207,16 +174,15 @@ const Contact = () => {
           </motion.div>
         </div>
 
-        <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12">
+        <div className="max-w-2xl mx-auto">
           {/* Contact Information */}
           <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
+            initial={{ opacity: 0, y: 30 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6 }}
-            className="space-y-8"
           >
             <div className="glass-card p-8">
-              <h3 className="text-2xl font-bold mb-6 gradient-text">
+              <h3 className="text-2xl font-bold mb-6 gradient-text text-center">
                 Contact Information
               </h3>
 
@@ -258,93 +224,6 @@ const Contact = () => {
                   </motion.div>
                 ))}
               </div>
-            </div>
-          </motion.div>
-
-          {/* Contact Form */}
-          <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.6 }}
-          >
-            <div className="glass-card p-8">
-              <h3 className="text-2xl font-bold mb-6 gradient-text">
-                Send a Message
-              </h3>
-
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div>
-                  <label htmlFor="name" className="block text-sm font-medium text-text-secondary mb-2">
-                    Your Name
-                  </label>
-                  <input
-                    type="text"
-                    id="name"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    required
-                    className="w-full px-4 py-3 bg-dark-bg border border-white/10 rounded-lg text-text-primary focus:outline-none focus:border-baby-blue focus:ring-2 focus:ring-baby-blue/20 transition-all duration-300"
-                    placeholder="John Doe"
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-text-secondary mb-2">
-                    Your Email
-                  </label>
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    required
-                    className="w-full px-4 py-3 bg-dark-bg border border-white/10 rounded-lg text-text-primary focus:outline-none focus:border-baby-blue focus:ring-2 focus:ring-baby-blue/20 transition-all duration-300"
-                    placeholder="john@example.com"
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="message" className="block text-sm font-medium text-text-secondary mb-2">
-                    Message
-                  </label>
-                  <textarea
-                    id="message"
-                    name="message"
-                    value={formData.message}
-                    onChange={handleChange}
-                    required
-                    rows="5"
-                    className="w-full px-4 py-3 bg-dark-bg border border-white/10 rounded-lg text-text-primary focus:outline-none focus:border-baby-blue focus:ring-2 focus:ring-baby-blue/20 transition-all duration-300 resize-none"
-                    placeholder="Your message here..."
-                  />
-                </div>
-
-                <motion.button
-                  type="submit"
-                  disabled={isSubmitting}
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  className={`w-full flex items-center justify-center gap-2 py-3 px-6 rounded-lg font-semibold transition-all duration-300 ${
-                    isSubmitting
-                      ? 'bg-text-secondary cursor-not-allowed'
-                      : 'bg-gradient-to-r from-baby-blue to-blue-500 hover:shadow-lg hover:shadow-baby-blue/50'
-                  } text-dark-bg`}
-                >
-                  {isSubmitting ? (
-                    <>
-                      <div className="w-5 h-5 border-2 border-dark-bg border-t-transparent rounded-full animate-spin" />
-                      Sending...
-                    </>
-                  ) : (
-                    <>
-                      <Send className="w-5 h-5" />
-                      Send Message
-                    </>
-                  )}
-                </motion.button>
-              </form>
             </div>
           </motion.div>
         </div>
