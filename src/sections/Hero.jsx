@@ -1,9 +1,27 @@
 import { motion } from 'framer-motion';
 import { ChevronDown } from 'lucide-react';
 import { useEffect, useState } from 'react';
+import { useLanguage } from '../i18n/LanguageContext';
+
+const content = {
+  en: {
+    fullStack: 'Full-Stack Developer',
+    dataScientist: 'Data Scientist',
+    viewProjects: 'View Projects',
+    contactMe: 'Contact Me',
+  },
+  pl: {
+    fullStack: 'Full-Stack Developer',
+    dataScientist: 'Data Scientist',
+    viewProjects: 'Zobacz projekty',
+    contactMe: 'Skontaktuj się',
+  },
+};
 
 const Hero = () => {
   const [scrollY, setScrollY] = useState(0);
+  const { language } = useLanguage();
+  const t = content[language];
 
   useEffect(() => {
     const handleScroll = () => setScrollY(window.scrollY);
@@ -82,20 +100,14 @@ const Hero = () => {
             transition={{ delay: 0.4, duration: 0.5 }}
             className="flex flex-col md:flex-row gap-4 md:gap-6 items-center justify-center text-lg md:text-xl mb-12"
           >
-            <span className="px-6 py-2 rounded-full bg-gradient-to-r from-blue-500/20 to-purple-500/20 border border-blue-400/30 text-blue-300 animate-pulse-slow hover:scale-105 transition-transform cursor-default">
-              Data Scientist
+            <span className="px-6 py-2 rounded-full bg-gradient-to-r from-purple-500/20 to-pink-500/20 border border-purple-400/30 text-purple-300 animate-pulse-slow hover:scale-105 transition-transform cursor-default">
+              {t.fullStack}
             </span>
 
-            <span className="hidden md:block text-gray-600">•</span>
+            <span className="hidden md:block text-gray-600">|</span>
 
-            <span className="px-6 py-2 rounded-full bg-gradient-to-r from-purple-500/20 to-pink-500/20 border border-purple-400/30 text-purple-300 animate-pulse-slow animation-delay-1000 hover:scale-105 transition-transform cursor-default">
-              Full-Stack Developer
-            </span>
-
-            <span className="hidden md:block text-gray-600">•</span>
-
-            <span className="px-6 py-2 rounded-full bg-gradient-to-r from-cyan-500/20 to-blue-500/20 border border-cyan-400/30 text-cyan-300 animate-pulse-slow animation-delay-2000 hover:scale-105 transition-transform cursor-default">
-              Audio Engineer
+            <span className="px-6 py-2 rounded-full bg-gradient-to-r from-blue-500/20 to-purple-500/20 border border-blue-400/30 text-blue-300 animate-pulse-slow animation-delay-1000 hover:scale-105 transition-transform cursor-default">
+              {t.dataScientist}
             </span>
           </motion.div>
 
@@ -106,10 +118,10 @@ const Hero = () => {
             className="flex flex-col sm:flex-row gap-4 justify-center items-center"
           >
             <button onClick={scrollToProjects} className="btn-primary">
-              View Projects
+              {t.viewProjects}
             </button>
             <button onClick={scrollToContact} className="btn-secondary">
-              Contact Me
+              {t.contactMe}
             </button>
           </motion.div>
         </div>

@@ -1,7 +1,25 @@
 import { Github, Linkedin, Mail, Heart } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { useLanguage } from '../i18n/LanguageContext';
+
+const content = {
+  en: {
+    tagline: 'Full-Stack Developer & Data Scientist',
+    rights: 'All rights reserved.',
+    madeWith: 'Made with',
+    using: 'using React + Three.js',
+  },
+  pl: {
+    tagline: 'Full-Stack Developer & Data Scientist',
+    rights: 'Wszelkie prawa zastrzeżone.',
+    madeWith: 'Stworzone z',
+    using: 'w React + Three.js',
+  },
+};
 
 const Footer = () => {
+  const { language } = useLanguage();
+  const t = content[language];
   const socialLinks = [
     {
       icon: <Github className="w-5 h-5" />,
@@ -40,7 +58,7 @@ const Footer = () => {
               </span>
             </div>
             <p className="text-text-secondary text-sm">
-              Data Scientist & Full-Stack Developer
+              {t.tagline}
             </p>
           </div>
 
@@ -68,10 +86,10 @@ const Footer = () => {
           {/* Copyright */}
           <div className="text-center md:text-right">
             <p className="text-text-secondary text-sm mb-2">
-              &copy; 2024 Jakub Wojtas. All rights reserved.
+              &copy; 2024 Jakub Wojtas. {t.rights}
             </p>
             <p className="text-text-secondary text-xs flex items-center justify-center md:justify-end gap-1">
-              Made with <Heart className="w-3 h-3 text-baby-blue fill-current" /> using React + Three.js
+              {t.madeWith} <Heart className="w-3 h-3 text-baby-blue fill-current" /> {t.using}
             </p>
           </div>
         </div>

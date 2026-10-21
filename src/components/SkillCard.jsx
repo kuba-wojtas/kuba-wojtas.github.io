@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 
-export default function SkillCard({ title, icon, technologies, color }) {
+export default function SkillCard({ title, icon, technologies, color, hint = 'Hover to see technologies' }) {
   const [isFlipped, setIsFlipped] = useState(false);
 
   return (
@@ -39,7 +39,7 @@ export default function SkillCard({ title, icon, technologies, color }) {
               {icon}
             </div>
             <h3 className="text-xl font-bold text-white mb-2">{title}</h3>
-            <p className="text-gray-400 text-sm">Hover to see technologies</p>
+            <p className="text-gray-400 text-sm">{hint}</p>
           </div>
         </div>
 

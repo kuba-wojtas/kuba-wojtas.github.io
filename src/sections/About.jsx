@@ -3,27 +3,80 @@ import { useInView } from 'framer-motion';
 import { useRef } from 'react';
 import { GraduationCap, TrendingUp, Code, Award } from 'lucide-react';
 import StatCard from '../components/StatCard';
+import { useLanguage } from '../i18n/LanguageContext';
+
+const content = {
+  en: {
+    heading: 'About',
+    headingAccent: 'Me',
+    cardTitle: 'About Me',
+    paragraphs: [
+      'I\'m a Data Scientist and Full-Stack Developer with a Master\'s degree in Computer Science (Data Science specialization) from the Polish-Japanese Academy of Information Technology. My background in mechatronics engineering gives me a unique perspective on solving complex problems that bridge theoretical knowledge with practical applications.',
+      'My passion lies in machine learning, audio processing, and full-stack development. I love creating innovative solutions that combine AI with seamless user experiences, whether it\'s building intelligent systems or crafting beautiful web applications.',
+    ],
+    educationTitle: 'Education',
+    completed: 'Completed',
+    education: [
+      {
+        school: 'Polish-Japanese Academy of Information Technology',
+        degree: 'Computer Science M.Sc (Data Science)',
+      },
+      {
+        school: 'Warsaw University of Technology',
+        degree: 'Mechatronics B.Eng',
+      },
+    ],
+    stats: {
+      projects: 'Projects Completed',
+      technologies: 'Technologies Mastered',
+      experience: 'Years of Experience',
+    },
+  },
+  pl: {
+    heading: 'O',
+    headingAccent: 'mnie',
+    cardTitle: 'O mnie',
+    paragraphs: [
+      'Jestem Data Scientistem i Full-Stack Developerem z tytułem magistra informatyki (specjalizacja Data Science) Polsko-Japońskiej Akademii Technik Komputerowych. Wykształcenie inżynierskie z mechatroniki daje mi unikalne spojrzenie na rozwiązywanie złożonych problemów, łącząc wiedzę teoretyczną z praktycznym zastosowaniem.',
+      'Moją pasją są uczenie maszynowe, przetwarzanie dźwięku i full-stack development. Uwielbiam tworzyć innowacyjne rozwiązania łączące AI z dopracowanym doświadczeniem użytkownika - zarówno przy budowie inteligentnych systemów, jak i estetycznych aplikacji webowych.',
+    ],
+    educationTitle: 'Wykształcenie',
+    completed: 'Ukończone',
+    education: [
+      {
+        school: 'Polsko-Japońska Akademia Technik Komputerowych',
+        degree: 'Informatyka, studia magisterskie (Data Science)',
+      },
+      {
+        school: 'Politechnika Warszawska',
+        degree: 'Mechatronika, studia inżynierskie',
+      },
+    ],
+    stats: {
+      projects: 'Zrealizowanych projektów',
+      technologies: 'Opanowanych technologii',
+      experience: 'Lata doświadczenia',
+    },
+  },
+};
+
+// Language-independent properties, matched by index with content[language].education
+const educationMeta = [
+  { period: '2024-2025', completed: true },
+  { period: '2020-2024', completed: true },
+];
 
 const About = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const { language } = useLanguage();
+  const t = content[language];
 
-  const education = [
-    {
-      school: 'Polish-Japanese Academy of Information Technology',
-      degree: 'Computer Science M.Sc (Data Science)',
-      period: '2024-2025',
-      icon: <GraduationCap className="w-6 h-6" />,
-      completed: true,
-    },
-    {
-      school: 'Warsaw University of Technology',
-      degree: 'Mechatronics B.Eng',
-      period: '2020-2024',
-      icon: <GraduationCap className="w-6 h-6" />,
-      completed: true,
-    },
-  ];
+  const education = t.education.map((edu, index) => ({
+    ...edu,
+    ...educationMeta[index],
+    icon: <GraduationCap className="w-6 h-6" />,
+  }));
 
   return (
     <section id="about" className="section-container bg-transparent">
@@ -35,7 +88,7 @@ const About = () => {
           className="text-center mb-16"
         >
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            About <span className="gradient-text">Me</span>
+            {t.heading} <span className="gradient-text">{t.headingAccent}</span>
           </h2>
           <div className="w-20 h-1 bg-gradient-to-r from-baby-blue to-blue-500 mx-auto rounded-full" />
         </motion.div>
@@ -50,18 +103,13 @@ const About = () => {
           >
             <div className="glass-card p-8">
               <h3 className="text-2xl font-bold mb-4 gradient-text">
-                About Me
+                {t.cardTitle}
               </h3>
               <p className="text-text-secondary leading-relaxed mb-4">
-                I'm a Data Scientist and Full-Stack Developer with a Master's degree in Computer Science
-                (Data Science specialization) from the Polish-Japanese Academy of Information Technology.
-                My background in mechatronics engineering gives me a unique perspective on solving complex
-                problems that bridge theoretical knowledge with practical applications.
+                {t.paragraphs[0]}
               </p>
               <p className="text-text-secondary leading-relaxed">
-                My passion lies in machine learning, audio processing, and full-stack development. I love
-                creating innovative solutions that combine AI with seamless user experiences, whether it's
-                building intelligent systems or crafting beautiful web applications.
+                {t.paragraphs[1]}
               </p>
             </div>
           </motion.div>
@@ -73,7 +121,7 @@ const About = () => {
             transition={{ duration: 0.5, delay: 0.4 }}
             className="space-y-6"
           >
-            <h3 className="text-2xl font-bold mb-6 gradient-text">Education</h3>
+            <h3 className="text-2xl font-bold mb-6 gradient-text">{t.educationTitle}</h3>
             <div className="space-y-6">
               {education.map((edu, index) => (
                 <motion.div
@@ -96,7 +144,7 @@ const About = () => {
                         <p className="text-sm text-text-secondary">{edu.period}</p>
                         {edu.completed && (
                           <span className="px-2 py-0.5 text-xs rounded-full bg-green-500/20 border border-green-400/30 text-green-400">
-                            Completed
+                            {t.completed}
                           </span>
                         )}
                       </div>
@@ -112,19 +160,19 @@ const About = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <StatCard
             end={10}
-            label="Projects Completed"
+            label={t.stats.projects}
             icon={<Code className="w-8 h-8" />}
             color="from-baby-blue to-blue-400"
           />
           <StatCard
             end={20}
-            label="Technologies Mastered"
+            label={t.stats.technologies}
             icon={<TrendingUp className="w-8 h-8" />}
             color="from-blue-400 to-purple-400"
           />
           <StatCard
-            end={2}
-            label="Years of Experience"
+            end={3}
+            label={t.stats.experience}
             icon={<Award className="w-8 h-8" />}
             color="from-purple-400 to-pink-400"
           />

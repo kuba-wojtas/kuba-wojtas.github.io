@@ -2,11 +2,30 @@ import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import LanguageToggle from './LanguageToggle';
+import { useLanguage } from '../i18n/LanguageContext';
+
+const content = {
+  en: {
+    home: 'Home',
+    itProjects: 'IT Projects',
+    contact: 'Contact',
+    toggleMenu: 'Toggle menu',
+  },
+  pl: {
+    home: 'Strona główna',
+    itProjects: 'Projekty IT',
+    contact: 'Kontakt',
+    toggleMenu: 'Przełącz menu',
+  },
+};
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
+  const { language } = useLanguage();
+  const t = content[language];
 
   useEffect(() => {
     const handleScroll = () => {
@@ -16,10 +35,6 @@ const Navbar = () => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-
-  useEffect(() => {
-    setIsOpen(false);
-  }, [location]);
 
   const scrollToSection = (sectionId) => {
     if (location.pathname !== '/') {
@@ -34,10 +49,9 @@ const Navbar = () => {
   };
 
   const navLinks = [
-    { name: 'Home', path: '/' },
-    { name: 'IT Projects', path: '/it-projects' },
-    { name: 'GFX Projects', path: '/gfx-projects' },
-    { name: 'Contact', action: () => scrollToSection('contact') },
+    { id: 'home', name: t.home, path: '/' },
+    { id: 'it-projects', name: t.itProjects, path: '/it-projects' },
+    { id: 'contact', name: t.contact, action: () => scrollToSection('contact') },
   ];
 
   return (
@@ -72,7 +86,7 @@ const Navbar = () => {
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
             {navLinks.map((link) => (
-              <div key={link.name}>
+              <div key={link.id}>
                 {link.path ? (
                   <Link
                     to={link.path}
@@ -102,21 +116,25 @@ const Navbar = () => {
                 )}
               </div>
             ))}
+            <LanguageToggle />
           </div>
 
-          {/* Mobile Menu Button */}
-          <motion.button
-            whileTap={{ scale: 0.95 }}
-            onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden p-2 rounded-lg hover:bg-dark-card transition-colors"
-            aria-label="Toggle menu"
-          >
-            {isOpen ? (
-              <X className="w-6 h-6 text-baby-blue" />
-            ) : (
-              <Menu className="w-6 h-6 text-baby-blue" />
-            )}
-          </motion.button>
+          {/* Mobile: Language Toggle + Menu Button */}
+          <div className="md:hidden flex items-center gap-3">
+            <LanguageToggle />
+            <motion.button
+              whileTap={{ scale: 0.95 }}
+              onClick={() => setIsOpen(!isOpen)}
+              className="p-2 rounded-lg hover:bg-dark-card transition-colors"
+              aria-label={t.toggleMenu}
+            >
+              {isOpen ? (
+                <X className="w-6 h-6 text-baby-blue" />
+              ) : (
+                <Menu className="w-6 h-6 text-baby-blue" />
+              )}
+            </motion.button>
+          </div>
         </div>
       </div>
 
@@ -133,7 +151,7 @@ const Navbar = () => {
             <div className="px-4 py-6 space-y-4">
               {navLinks.map((link, index) => (
                 <motion.div
-                  key={link.name}
+                  key={link.id}
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: index * 0.1 }}
@@ -141,6 +159,7 @@ const Navbar = () => {
                   {link.path ? (
                     <Link
                       to={link.path}
+                      onClick={() => setIsOpen(false)}
                       className={`block py-2 text-lg font-medium transition-colors ${
                         location.pathname === link.path
                           ? 'text-baby-blue'

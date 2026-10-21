@@ -6,7 +6,7 @@ import Footer from './components/Footer';
 import FloatingParticles from './components/FloatingParticles';
 import Home from './pages/Home';
 import ITProjects from './pages/ITProjects';
-import GFXProjects from './pages/GFXProjects';
+import LanguageProvider from './i18n/LanguageProvider';
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -73,19 +73,6 @@ function AnimatedRoutes() {
             </motion.div>
           }
         />
-        <Route
-          path="/gfx-projects"
-          element={
-            <motion.div
-              variants={pageVariants}
-              initial="initial"
-              animate="animate"
-              exit="exit"
-            >
-              <GFXProjects />
-            </motion.div>
-          }
-        />
       </Routes>
     </AnimatePresence>
   );
@@ -93,17 +80,19 @@ function AnimatedRoutes() {
 
 function App() {
   return (
-    <Router>
-      <ScrollToTop />
-      <FloatingParticles />
-      <div className="relative z-10 flex flex-col min-h-screen">
-        <Navbar />
-        <main className="flex-grow">
-          <AnimatedRoutes />
-        </main>
-        <Footer />
-      </div>
-    </Router>
+    <LanguageProvider>
+      <Router>
+        <ScrollToTop />
+        <FloatingParticles />
+        <div className="relative z-10 flex flex-col min-h-screen">
+          <Navbar />
+          <main className="flex-grow">
+            <AnimatedRoutes />
+          </main>
+          <Footer />
+        </div>
+      </Router>
+    </LanguageProvider>
   );
 }
 

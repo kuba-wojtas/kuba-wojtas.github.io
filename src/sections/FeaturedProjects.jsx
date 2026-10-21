@@ -3,49 +3,95 @@ import { useInView } from 'framer-motion';
 import { useRef } from 'react';
 import { ExternalLink, Github, FileText } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { useLanguage } from '../i18n/LanguageContext';
+
+const content = {
+  en: {
+    heading: 'Featured',
+    headingAccent: 'Projects',
+    intro: 'A selection of my latest work in AI, web development, and data science',
+    viewAll: 'View All Projects',
+    viewDemo: 'View Demo',
+    viewGithub: 'View on GitHub',
+    pdfOnRequest: 'PDF available on request',
+    projects: {
+      rag: {
+        title: 'AI Knowledge Assistant (RAG)',
+        subtitle: 'Internal RAG Chatbot',
+        description: 'Internal RAG chatbot that answers employee questions based on company documentation (procedures, wiki, logs). The pipeline covers document chunking, embeddings, semantic retrieval, and context-grounded LLM answers served via FastAPI. Reduced repetitive internal support requests; deployed as an internal tool and as an embeddable website widget.',
+      },
+      ePrescription: {
+        title: 'E-Prescription System - Medical Practice',
+        subtitle: 'Client Project · GDPR-Compliant Telemedicine Platform',
+        description: 'GDPR-compliant web platform for online medical consultations with e-prescription issuing, delivered for a client together with a dedicated website and CMS. Configured secure server infrastructure (Ubuntu VPS, nginx, SSL, encrypted database) for handling sensitive data. Implemented the full patient/doctor workflow: intake form, payment (Stripe/BLIK), e-prescription code delivery via SMS, and transactional email. Cut the doctor\'s administrative workload by ~2h/day and increased revenue by ~10%.',
+      },
+      mailflow: {
+        title: 'Multiplatform Local-First Email Client (MailFlow)',
+        subtitle: 'Privacy-First Desktop App with On-Device AI',
+        description: 'Cross-platform desktop email client focused on privacy and data sovereignty, aimed at B2B customers in the EU. Architected with Tauri 2.0 and Rust for a lightweight, secure native shell, with a React/TypeScript frontend. Implemented encrypted local storage (SQLCipher) and on-device AI features via Ollama, so user data stays fully local (GDPR-compliant). Designed as a private alternative to cloud email clients, with local AI as the key differentiator.',
+      },
+    },
+  },
+  pl: {
+    heading: 'Wybrane',
+    headingAccent: 'projekty',
+    intro: 'Wybór moich najnowszych prac z obszaru AI, web developmentu i data science',
+    viewAll: 'Zobacz wszystkie projekty',
+    viewDemo: 'Zobacz demo',
+    viewGithub: 'Zobacz na GitHubie',
+    pdfOnRequest: 'PDF dostępny na prośbę',
+    projects: {
+      rag: {
+        title: 'Asystent wiedzy AI (RAG)',
+        subtitle: 'Wewnętrzny chatbot RAG',
+        description: 'Wewnętrzny chatbot RAG odpowiadający na pytania pracowników na podstawie dokumentacji firmowej (procedury, wiki, logi). Pipeline obejmuje chunking dokumentów, embeddingi, semantic retrieval oraz odpowiedzi LLM osadzone w kontekście (context-grounded), serwowane przez FastAPI. Ograniczył liczbę powtarzalnych zapytań do wsparcia wewnętrznego; wdrożony jako narzędzie wewnętrzne oraz jako widget osadzany na stronie.',
+      },
+      ePrescription: {
+        title: 'System e-recept - praktyka lekarska',
+        subtitle: 'Projekt dla klienta · Platforma telemedyczna zgodna z RODO',
+        description: 'Zgodna z RODO platforma webowa do konsultacji medycznych online z wystawianiem e-recept, zrealizowana dla klienta wraz z dedykowaną stroną i systemem CMS. Skonfigurowana bezpieczna infrastruktura serwerowa (Ubuntu VPS, nginx, SSL, szyfrowana baza danych) do obsługi danych wrażliwych. Zaimplementowany pełny workflow pacjent/lekarz: formularz zgłoszeniowy, płatność (Stripe/BLIK), dostarczenie kodu e-recepty SMS-em i e-mail transakcyjny. Rezultat: redukcja obciążenia administracyjnego lekarza o ~2h dziennie i wzrost przychodu o ~10%.',
+      },
+      mailflow: {
+        title: 'Wieloplatformowy klient poczty Local-First (MailFlow)',
+        subtitle: 'Desktopowa aplikacja z AI działającym na urządzeniu',
+        description: 'Wieloplatformowy desktopowy klient poczty skoncentrowany na prywatności i suwerenności danych, kierowany do klientów B2B w UE. Architektura oparta na Tauri 2.0 i Rust zapewnia lekką, bezpieczną natywną powłokę, a frontend powstał w React/TypeScript. Zaimplementowane szyfrowane lokalne przechowywanie danych (SQLCipher) oraz funkcje AI działające na urządzeniu przez Ollama - dane użytkownika pozostają w pełni lokalne (zgodność z RODO). Zaprojektowany jako prywatna alternatywa dla chmurowych klientów poczty, z lokalnym AI jako głównym wyróżnikiem.',
+      },
+    },
+  },
+};
+
+// Language-independent project data; text comes from content[language].projects[key]
+const projectMeta = [
+  {
+    key: 'rag',
+    tech: ['Python', 'FastAPI', 'LangChain', 'RAG', 'Vector Database', 'OpenAI API'],
+    gradient: 'from-cyan-500 to-blue-600',
+    icon: '🤖',
+    links: {}
+  },
+  {
+    key: 'ePrescription',
+    tech: ['WordPress', 'Gravity Forms', 'Stripe', 'RODO/GDPR Compliance', 'Linux VPS', 'nginx'],
+    gradient: 'from-teal-500 to-cyan-600',
+    icon: '🩺',
+    links: {}
+  },
+  {
+    key: 'mailflow',
+    tech: ['Tauri 2.0', 'Rust', 'React', 'TypeScript', 'SQLCipher', 'Ollama'],
+    gradient: 'from-indigo-500 to-blue-600',
+    icon: '✉️',
+    links: {}
+  },
+];
 
 const FeaturedProjects = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const { language } = useLanguage();
+  const t = content[language];
 
-  const projects = [
-    {
-      title: 'Deep Learning Music Genre Classifier',
-      subtitle: 'CNN-Based Audio Analysis',
-      description: 'Convolutional Neural Network achieving 71.52% accuracy on GTZAN dataset. Processes Mel-spectrograms to classify 10 music genres. Features BatchNorm, Dropout, LeakyReLU activation, and Grad-CAM visualizations for model interpretability.',
-      tech: ['Python', 'PyTorch', 'CNN', 'Grad-CAM', 'GTZAN'],
-      gradient: 'from-purple-500 to-violet-600',
-      icon: '🎵',
-      links: {
-        github: '#',
-        pdf: '#',
-      }
-    },
-    {
-      title: 'RolnictwoToMy Agricultural Marketplace',
-      subtitle: 'Full-Stack Web & Mobile Platform',
-      description: 'Comprehensive two-sided marketplace platform connecting farmers with buyers. Built with React and Firebase, featuring real-time search, user authentication, product filtering, and integrated subscription model. Successfully deployed to production.',
-      tech: ['React', 'Firebase', 'Firestore', 'Tailwind CSS', 'Capacitor'],
-      gradient: 'from-yellow-500 to-orange-500',
-      icon: '🌾',
-      links: {
-        demo: '#',
-        github: '#',
-      }
-    },
-    {
-      title: 'Spotify Music Insights & Recommendation Engine',
-      subtitle: 'AI-Powered Music Analysis',
-      description: 'Python application leveraging Spotify Web API for personalized music analysis. Aggregates listening habits, genre distribution, and temporal patterns. Generates recommendations using collaborative filtering with AI-generated summaries.',
-      tech: ['Python', 'Spotify API', 'OpenAI API', 'Pandas', 'Streamlit'],
-      gradient: 'from-green-500 to-emerald-500',
-      icon: '🎧',
-      links: {
-        github: '#',
-        demo: '#',
-      }
-    }
-  ];
+  const projects = projectMeta.map((project) => ({ ...project, ...t.projects[project.key] }));
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -76,11 +122,11 @@ const FeaturedProjects = () => {
           className="text-center mb-16"
         >
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            Featured <span className="gradient-text">Projects</span>
+            {t.heading} <span className="gradient-text">{t.headingAccent}</span>
           </h2>
           <div className="w-20 h-1 bg-gradient-to-r from-baby-blue to-blue-500 mx-auto rounded-full mb-4" />
           <p className="text-text-secondary max-w-2xl mx-auto">
-            A selection of my best work in data science, web development, and audio engineering
+            {t.intro}
           </p>
         </motion.div>
 
@@ -90,9 +136,9 @@ const FeaturedProjects = () => {
           animate={isInView ? "visible" : "hidden"}
           className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12"
         >
-          {projects.map((project, index) => (
+          {projects.map((project) => (
             <motion.div
-              key={index}
+              key={project.key}
               variants={itemVariants}
               whileHover={{ y: -10 }}
               className="glass-card p-6 group relative overflow-hidden"
@@ -118,7 +164,7 @@ const FeaturedProjects = () => {
                   </p>
                 </div>
 
-                <p className="text-text-secondary text-sm leading-relaxed line-clamp-6">
+                <p className="text-text-secondary text-sm leading-relaxed">
                   {project.description}
                 </p>
 
@@ -135,38 +181,40 @@ const FeaturedProjects = () => {
                 </div>
 
                 {/* Links */}
-                <div className="flex gap-3 pt-4">
-                  {project.links.demo && (
-                    <a
-                      href={project.links.demo}
-                      className="flex-1 flex items-center justify-center gap-2 py-2 px-4 bg-baby-blue/10 hover:bg-baby-blue/20 text-baby-blue rounded-lg transition-all duration-300 text-sm font-medium border border-baby-blue/20"
-                      title="View Demo"
-                    >
-                      <ExternalLink className="w-4 h-4" />
-                      Demo
-                    </a>
-                  )}
-                  {project.links.github && (
-                    <a
-                      href={project.links.github}
-                      className="flex-1 flex items-center justify-center gap-2 py-2 px-4 bg-dark-bg/50 hover:bg-dark-bg text-text-secondary hover:text-baby-blue rounded-lg transition-all duration-300 text-sm font-medium border border-white/10"
-                      title="View on GitHub"
-                    >
-                      <Github className="w-4 h-4" />
-                      GitHub
-                    </a>
-                  )}
-                  {project.links.pdf && (
-                    <button
-                      disabled
-                      className="flex-1 flex items-center justify-center gap-2 py-2 px-4 bg-dark-bg/30 text-text-secondary/50 rounded-lg text-sm font-medium border border-white/5 cursor-not-allowed"
-                      title="PDF available on request"
-                    >
-                      <FileText className="w-4 h-4" />
-                      PDF
-                    </button>
-                  )}
-                </div>
+                {Object.keys(project.links).length > 0 && (
+                  <div className="flex gap-3 pt-4">
+                    {project.links.demo && (
+                      <a
+                        href={project.links.demo}
+                        className="flex-1 flex items-center justify-center gap-2 py-2 px-4 bg-baby-blue/10 hover:bg-baby-blue/20 text-baby-blue rounded-lg transition-all duration-300 text-sm font-medium border border-baby-blue/20"
+                        title={t.viewDemo}
+                      >
+                        <ExternalLink className="w-4 h-4" />
+                        Demo
+                      </a>
+                    )}
+                    {project.links.github && (
+                      <a
+                        href={project.links.github}
+                        className="flex-1 flex items-center justify-center gap-2 py-2 px-4 bg-dark-bg/50 hover:bg-dark-bg text-text-secondary hover:text-baby-blue rounded-lg transition-all duration-300 text-sm font-medium border border-white/10"
+                        title={t.viewGithub}
+                      >
+                        <Github className="w-4 h-4" />
+                        GitHub
+                      </a>
+                    )}
+                    {project.links.pdf && (
+                      <button
+                        disabled
+                        className="flex-1 flex items-center justify-center gap-2 py-2 px-4 bg-dark-bg/30 text-text-secondary/50 rounded-lg text-sm font-medium border border-white/5 cursor-not-allowed"
+                        title={t.pdfOnRequest}
+                      >
+                        <FileText className="w-4 h-4" />
+                        PDF
+                      </button>
+                    )}
+                  </div>
+                )}
               </div>
 
               {/* Shimmer effect on hover */}
@@ -186,7 +234,7 @@ const FeaturedProjects = () => {
             to="/it-projects"
             className="inline-flex items-center gap-2 btn-primary"
           >
-            View All Projects
+            {t.viewAll}
             <ExternalLink className="w-4 h-4" />
           </Link>
         </motion.div>

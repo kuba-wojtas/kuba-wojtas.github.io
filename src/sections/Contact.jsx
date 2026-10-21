@@ -2,30 +2,56 @@ import { motion } from 'framer-motion';
 import { useInView } from 'framer-motion';
 import { useRef } from 'react';
 import { Mail, Phone, MapPin, Github, Linkedin } from 'lucide-react';
+import { useLanguage } from '../i18n/LanguageContext';
+
+const content = {
+  en: {
+    heading: 'Get In',
+    headingAccent: 'Touch',
+    intro: "Let's discuss your next project",
+    infoTitle: 'Contact Information',
+    email: 'Email',
+    phone: 'Phone',
+    location: 'Location',
+    locationValue: 'Warsaw, Poland',
+  },
+  pl: {
+    heading: 'Bądźmy w',
+    headingAccent: 'kontakcie',
+    intro: 'Porozmawiajmy o Twoim kolejnym projekcie',
+    infoTitle: 'Dane kontaktowe',
+    email: 'E-mail',
+    phone: 'Telefon',
+    location: 'Lokalizacja',
+    locationValue: 'Warszawa, Polska',
+  },
+};
 
 const Contact = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const { language } = useLanguage();
+  const t = content[language];
 
   const contactInfo = [
     {
       icon: <Mail className="w-8 h-8" />,
-      label: 'Email',
+      label: t.email,
       value: 'contact@jakubwojtas.com',
       href: 'mailto:contact@jakubwojtas.com',
       color: 'from-baby-blue to-blue-500'
     },
     {
       icon: <Phone className="w-8 h-8" />,
-      label: 'Phone',
+      label: t.phone,
       value: '+48 518 607 005',
       href: 'tel:+48518607005',
       color: 'from-blue-500 to-purple-500'
     },
     {
       icon: <MapPin className="w-8 h-8" />,
-      label: 'Location',
-      value: 'Warsaw, Poland',
+      label: t.location,
+      value: t.locationValue,
       href: null,
       color: 'from-purple-500 to-pink-500'
     }
@@ -47,7 +73,7 @@ const Contact = () => {
       glowColor: 'hover:shadow-[0_0_30px_rgba(59,130,246,0.5)]'
     },
     {
-      name: 'Email',
+      name: t.email,
       icon: <Mail className="w-6 h-6" />,
       url: 'mailto:contact@jakubwojtas.com',
       hoverColor: 'hover:text-green-400 hover:bg-green-500/20',
@@ -65,11 +91,11 @@ const Contact = () => {
           className="text-center mb-16"
         >
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            Get In <span className="gradient-text">Touch</span>
+            {t.heading} <span className="gradient-text">{t.headingAccent}</span>
           </h2>
           <div className="w-20 h-1 bg-gradient-to-r from-baby-blue to-blue-500 mx-auto rounded-full mb-4" />
           <p className="text-text-secondary max-w-2xl mx-auto">
-            Let's discuss your next project
+            {t.intro}
           </p>
         </motion.div>
 
@@ -183,7 +209,7 @@ const Contact = () => {
           >
             <div className="glass-card p-8">
               <h3 className="text-2xl font-bold mb-6 gradient-text text-center">
-                Contact Information
+                {t.infoTitle}
               </h3>
 
               <div className="space-y-6">
