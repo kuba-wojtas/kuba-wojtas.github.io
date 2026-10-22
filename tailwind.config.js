@@ -7,36 +7,27 @@ export default {
   theme: {
     extend: {
       colors: {
-        'baby-blue': '#B2D9FF',
-        'dark-bg': '#0a0a0a',
-        'dark-card': '#1a1a1a',
-        'text-primary': '#e5e5e5',
-        'text-secondary': '#a0a0a0',
+        ink: '#000000',
+        'ink-soft': '#131211',
+        paper: '#F2EAE3',
+        stone: '#D0C9C3',
+        signal: '#FF073A',
       },
       fontFamily: {
-        'sans': ['Inter', 'system-ui', 'sans-serif'],
+        display: ['FreeSans', '"Helvetica Neue"', 'Helvetica', 'Arial', 'sans-serif'],
+        sans: ['FreeSans', '"Helvetica Neue"', 'Helvetica', 'Arial', 'sans-serif'],
       },
-      animation: {
-        'gradient': 'gradient 3s ease infinite',
-        'gradient-shift': 'gradient-shift 8s ease infinite',
-        'pulse-slow': 'pulse-slow 3s ease-in-out infinite',
+      fontSize: {
+        // Type scale: 13 / 17 / 22 / 32 / 56–72 / fluid hero
+        label: ['0.8125rem', { lineHeight: '1.4' }],
+        body: ['1.0625rem', { lineHeight: '1.55' }],
+        lead: ['1.375rem', { lineHeight: '1.35', letterSpacing: '-0.01em' }],
+        title: ['2rem', { lineHeight: '1.05', letterSpacing: '-0.02em' }],
+        heading: ['clamp(2.75rem, 5.5vw, 4.5rem)', { lineHeight: '0.95', letterSpacing: '-0.035em' }],
+        hero: ['clamp(4rem, min(16vw, 18svh), 16rem)', { lineHeight: '0.8', letterSpacing: '-0.055em' }],
       },
-      keyframes: {
-        gradient: {
-          '0%, 100%': { backgroundPosition: '0% 50%' },
-          '50%': { backgroundPosition: '100% 50%' },
-        },
-        'gradient-shift': {
-          '0%, 100%': { backgroundPosition: '0% 50%' },
-          '50%': { backgroundPosition: '100% 50%' },
-        },
-        'pulse-slow': {
-          '0%, 100%': { opacity: '0.6', transform: 'scale(1)' },
-          '50%': { opacity: '1', transform: 'scale(1.02)' },
-        },
-      },
-      backgroundSize: {
-        '200': '200% 200%',
+      maxWidth: {
+        measure: '38rem',
       },
     },
   },

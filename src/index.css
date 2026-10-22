@@ -1,150 +1,115 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+/* FreeSans (GNU FreeFont, GPL with font exception), subset to Latin + Latin Extended-A */
+@font-face {
+  font-family: 'FreeSans';
+  src: url('/fonts/freesans/FreeSans-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'FreeSans';
+  src: url('/fonts/freesans/FreeSans-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
-  * {
-    @apply m-0 p-0 box-border;
+  html {
+    scroll-behavior: smooth;
   }
 
-  html {
-    @apply scroll-smooth;
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
   }
 
   body {
-    @apply bg-dark-bg text-text-primary font-sans antialiased;
+    @apply bg-paper text-ink font-sans text-body antialiased;
     min-height: 100vh;
+    font-feature-settings: 'kern', 'liga';
   }
 
   #root {
     @apply min-h-screen;
   }
 
-  /* Custom Scrollbar */
-  ::-webkit-scrollbar {
-    width: 8px;
-  }
-
-  ::-webkit-scrollbar-track {
-    background: #0a0a0a;
-  }
-
-  ::-webkit-scrollbar-thumb {
-    background: #B2D9FF;
-    border-radius: 4px;
-  }
-
-  ::-webkit-scrollbar-thumb:hover {
-    background: #8bb8ff;
-  }
-
-  /* Selection Color */
   ::selection {
-    background: #B2D9FF;
-    color: #0a0a0a;
+    @apply bg-signal text-ink;
   }
 
-  ::-moz-selection {
-    background: #B2D9FF;
-    color: #0a0a0a;
+  :focus-visible {
+    outline: 2px solid #FF073A;
+    outline-offset: 3px;
   }
 }
 
 @layer components {
-  .section-container {
-    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24;
+  /* Page margins shared by every row of the layout */
+  .page-x {
+    @apply px-5 md:px-10;
   }
 
-  .glass-card {
-    @apply relative
-           bg-gradient-to-br from-white/[0.05] to-white/[0.01]
-           backdrop-blur-xl
-           border border-white/[0.08]
-           rounded-3xl
-           overflow-hidden
-           transition-all duration-700 ease-out
-           hover:border-blue-400/30
-           hover:-translate-y-1
-           hover:bg-gradient-to-br hover:from-white/[0.07] hover:to-white/[0.02];
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  /* 12-column Swiss grid (4 columns on mobile) */
+  .grid-12 {
+    @apply grid grid-cols-4 md:grid-cols-12 gap-x-6 mx-auto;
+    max-width: 100rem;
   }
 
-  .glass-card:hover {
-    box-shadow: 0 8px 32px rgba(178, 217, 255, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  /* Section: hairline on top, heading in the left four columns */
+  .section {
+    @apply page-x py-20 md:py-28;
   }
 
-  .glass-card::before {
+  /* Short red bar above every section heading */
+  .heading-mark::before {
     content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to bottom right, rgba(255, 255, 255, 0.1), transparent);
-    opacity: 0;
-    transition: opacity 700ms;
+    @apply block w-10 h-1.5 bg-signal mb-6;
   }
 
-  .glass-card:hover::before {
-    opacity: 1;
+  .section-heading {
+    @apply heading-mark col-span-4 font-display font-normal text-heading mb-12 md:mb-0;
   }
 
-  .glass-card::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.1), transparent);
-    transform: translateX(-100%) skewX(-12deg);
-    transition: transform 1000ms;
+  .section-body {
+    @apply col-span-4 md:col-span-8;
   }
 
-  .glass-card:hover::after {
-    transform: translateX(100%) skewX(-12deg);
+  .rule {
+    @apply border-t border-ink;
   }
 
-  .gradient-text {
-    @apply bg-gradient-to-r from-baby-blue to-blue-400 bg-clip-text text-transparent;
+  .meta-label {
+    @apply text-label text-ink/55;
   }
 
-  .glow-effect {
-    box-shadow: 0 0 30px rgba(178, 217, 255, 0.3);
+  /* Text link with a red underline; the text turns red on hover */
+  .link {
+    @apply underline decoration-signal decoration-2 underline-offset-4 transition-colors hover:text-signal;
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center px-5 py-3 text-body font-bold transition-colors;
   }
 
   .btn-primary {
-    @apply px-6 py-3 rounded-full bg-baby-blue text-dark-bg font-semibold
-           hover:bg-blue-300 transition-all duration-300 hover:scale-105
-           hover:shadow-lg hover:shadow-baby-blue/50;
+    @apply btn bg-signal text-ink hover:bg-ink hover:text-paper;
   }
 
   .btn-secondary {
-    @apply px-6 py-3 rounded-full border-2 border-baby-blue text-baby-blue
-           font-semibold hover:bg-baby-blue hover:text-dark-bg
-           transition-all duration-300 hover:scale-105;
-  }
-}
-
-@layer utilities {
-  .text-shadow {
-    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
-  }
-
-  .perspective-1000 {
-    perspective: 1000px;
-  }
-
-  .backface-hidden {
-    backface-visibility: hidden;
-    -webkit-backface-visibility: hidden;
-  }
-
-  .animation-delay-1000 {
-    animation-delay: 1s;
-  }
-
-  .animation-delay-2000 {
-    animation-delay: 2s;
-  }
-
-  .animate-pulse-slow {
-    animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    @apply btn border border-ink text-ink hover:border-signal hover:text-signal;
   }
 }

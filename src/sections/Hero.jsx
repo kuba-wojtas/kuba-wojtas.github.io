@@ -1,153 +1,78 @@
-import { motion } from 'framer-motion';
-import { ChevronDown } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { motion, useReducedMotion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import { useLanguage } from '../i18n/LanguageContext';
+
+const EMAIL = 'contact@jakubwojtas.com';
 
 const content = {
   en: {
     fullStack: 'Full-Stack Developer',
     dataScientist: 'Data Scientist',
-    viewProjects: 'View Projects',
-    contactMe: 'Contact Me',
+    emailLabel: 'Email',
+    basedLabel: 'Based in',
+    basedValue: 'Warsaw, Poland',
+    viewProjects: 'View projects',
+    contactMe: 'Contact me',
   },
   pl: {
     fullStack: 'Full-Stack Developer',
     dataScientist: 'Data Scientist',
+    emailLabel: 'E-mail',
+    basedLabel: 'Lokalizacja',
+    basedValue: 'Warszawa, Polska',
     viewProjects: 'Zobacz projekty',
     contactMe: 'Skontaktuj się',
   },
 };
 
 const Hero = () => {
-  const [scrollY, setScrollY] = useState(0);
   const { language } = useLanguage();
   const t = content[language];
+  const reduceMotion = useReducedMotion();
 
-  useEffect(() => {
-    const handleScroll = () => setScrollY(window.scrollY);
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  const scrollToProjects = () => {
-    const element = document.getElementById('featured-projects');
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
-  const scrollToContact = () => {
-    const element = document.getElementById('contact');
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
+  // The one orchestrated moment on the page: the name rises out of its baseline
+  const line = (delay) => ({
+    initial: reduceMotion ? false : { y: '100%' },
+    animate: { y: 0 },
+    transition: { duration: 0.9, delay, ease: [0.2, 0.7, 0.1, 1] },
+  });
 
   return (
-    <section className="relative h-screen flex items-center justify-center overflow-hidden">
-      {/* Gradient przechodzący z góry do przezroczystego - particles przenikają */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background: `linear-gradient(to bottom,
-            rgba(23, 37, 84, 0.85) 0%,
-            rgba(23, 37, 84, 0.7) 15%,
-            rgba(23, 37, 84, 0.5) 30%,
-            rgba(23, 37, 84, 0.35) 45%,
-            rgba(23, 37, 84, 0.2) 60%,
-            rgba(23, 37, 84, 0.1) 75%,
-            rgba(23, 37, 84, 0.03) 90%,
-            rgba(23, 37, 84, 0) 100%
-          )`
-        }}
-      />
-
-
-      {/* Content */}
-      <div className="relative z-20 text-center px-4 sm:px-6 lg:px-8">
-        {/* Photo with parallax */}
-        <div style={{ transform: `translateY(${scrollY * 0.2}px)` }}>
-          <motion.div
-            initial={{ scale: 0, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 0.5 }}
-            className="mb-8"
-          >
-            {/* Profile Image */}
-            <img
-              src="/projects/prof_blue.png"
-              alt="Jakub Wojtas"
-              className="w-48 h-48 md:w-64 md:h-64 mx-auto rounded-full object-cover border-4 border-baby-blue shadow-[0_0_50px_rgba(178,217,255,0.4)] hover:scale-105 transition-transform duration-500 mb-8"
-            />
-          </motion.div>
-        </div>
-
-        {/* Name and roles with fastest parallax (moves up) */}
-        <div style={{ transform: `translateY(${scrollY * -0.1}px)` }}>
-          <motion.h1
-            initial={{ y: 20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.2, duration: 0.5 }}
-            className="text-5xl md:text-7xl lg:text-8xl font-bold mb-8 text-shadow"
-          >
-            <span className="gradient-text">Jakub Wojtas</span>
-          </motion.h1>
-
-          {/* All roles visible at once with gradient animations */}
-          <motion.div
-            initial={{ y: 20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.4, duration: 0.5 }}
-            className="flex flex-col md:flex-row gap-4 md:gap-6 items-center justify-center text-lg md:text-xl mb-12"
-          >
-            <span className="px-6 py-2 rounded-full bg-gradient-to-r from-purple-500/20 to-pink-500/20 border border-purple-400/30 text-purple-300 animate-pulse-slow hover:scale-105 transition-transform cursor-default">
-              {t.fullStack}
+    <section className="bg-paper page-x pt-24 md:pt-28 pb-6">
+      <div className="grid-12 w-full">
+        <div className="col-span-4 md:col-span-12">
+          <h1 className="font-display font-bold text-hero">
+            <span className="block overflow-hidden pb-[0.2em] -mb-[0.14em]">
+              <motion.span className="block" {...line(0.1)}>Jakub</motion.span>
             </span>
-
-            <span className="hidden md:block text-gray-600">|</span>
-
-            <span className="px-6 py-2 rounded-full bg-gradient-to-r from-blue-500/20 to-purple-500/20 border border-blue-400/30 text-blue-300 animate-pulse-slow animation-delay-1000 hover:scale-105 transition-transform cursor-default">
-              {t.dataScientist}
+            <span className="block overflow-hidden pb-[0.2em] -mb-[0.14em]">
+              <motion.span className="block" {...line(0.22)}>Wojtas</motion.span>
             </span>
-          </motion.div>
-
-          <motion.div
-            initial={{ y: 20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.6, duration: 0.5 }}
-            className="flex flex-col sm:flex-row gap-4 justify-center items-center"
-          >
-            <button onClick={scrollToProjects} className="btn-primary">
-              {t.viewProjects}
-            </button>
-            <button onClick={scrollToContact} className="btn-secondary">
-              {t.contactMe}
-            </button>
-          </motion.div>
+          </h1>
+          <p className="font-display text-lead md:text-title mt-4">
+            {t.fullStack}
+            <br />
+            {t.dataScientist}
+          </p>
         </div>
       </div>
 
-      {/* Scroll Indicator */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1, duration: 0.5 }}
-        className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20"
-      >
-        <motion.div
-          animate={{ y: [0, 10, 0] }}
-          transition={{ repeat: Infinity, duration: 1.5 }}
-          className="cursor-pointer"
-          onClick={() => {
-            const element = document.getElementById('about');
-            if (element) {
-              element.scrollIntoView({ behavior: 'smooth' });
-            }
-          }}
-        >
-          <ChevronDown className="w-8 h-8 text-baby-blue" />
-        </motion.div>
-      </motion.div>
+      <div className="grid-12 w-full rule pt-4 mt-10 gap-y-6">
+        <dl className="col-span-4 md:col-span-3">
+          <dt className="meta-label">{t.emailLabel}</dt>
+          <dd>
+            <a href={`mailto:${EMAIL}`} className="link">{EMAIL}</a>
+          </dd>
+        </dl>
+        <dl className="col-span-4 md:col-span-3">
+          <dt className="meta-label">{t.basedLabel}</dt>
+          <dd>{t.basedValue}</dd>
+        </dl>
+        <div className="col-span-4 md:col-start-7 md:col-span-6 flex flex-wrap gap-3 md:justify-end items-start [&>*]:whitespace-nowrap">
+          <a href="#featured-projects" className="btn-primary">{t.viewProjects}</a>
+          <Link to="/#contact" className="btn-secondary">{t.contactMe}</Link>
+        </div>
+      </div>
     </section>
   );
 };

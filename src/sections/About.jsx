@@ -1,17 +1,11 @@
-import { motion } from 'framer-motion';
-import { useInView } from 'framer-motion';
-import { useRef } from 'react';
-import { GraduationCap, TrendingUp, Code, Award } from 'lucide-react';
-import StatCard from '../components/StatCard';
 import { useLanguage } from '../i18n/LanguageContext';
+import Experience from './Experience';
 
 const content = {
   en: {
-    heading: 'About',
-    headingAccent: 'Me',
-    cardTitle: 'About Me',
+    heading: 'About me',
     paragraphs: [
-      'I\'m a Data Scientist and Full-Stack Developer with a Master\'s degree in Computer Science (Data Science specialization) from the Polish-Japanese Academy of Information Technology. My background in mechatronics engineering gives me a unique perspective on solving complex problems that bridge theoretical knowledge with practical applications.',
+      'I\'m a Full-Stack Developer and Data Scientist with a Master\'s degree in Computer Science (Data Science specialization) from the Polish-Japanese Academy of Information Technology. My background in mechatronics engineering gives me a unique perspective on solving complex problems that bridge theoretical knowledge with practical applications.',
       'My passion lies in machine learning, audio processing, and full-stack development. I love creating innovative solutions that combine AI with seamless user experiences, whether it\'s building intelligent systems or crafting beautiful web applications.',
     ],
     educationTitle: 'Education',
@@ -27,17 +21,15 @@ const content = {
       },
     ],
     stats: {
-      projects: 'Projects Completed',
-      technologies: 'Technologies Mastered',
-      experience: 'Years of Experience',
+      projects: 'Projects completed',
+      clients: 'Happy clients',
+      experience: 'Years of experience',
     },
   },
   pl: {
-    heading: 'O',
-    headingAccent: 'mnie',
-    cardTitle: 'O mnie',
+    heading: 'O mnie',
     paragraphs: [
-      'Jestem Data Scientistem i Full-Stack Developerem z tytułem magistra informatyki (specjalizacja Data Science) Polsko-Japońskiej Akademii Technik Komputerowych. Wykształcenie inżynierskie z mechatroniki daje mi unikalne spojrzenie na rozwiązywanie złożonych problemów, łącząc wiedzę teoretyczną z praktycznym zastosowaniem.',
+      'Jestem Full-Stack Developerem i Data Scientistem z tytułem magistra informatyki (specjalizacja Data Science) Polsko-Japońskiej Akademii Technik Komputerowych. Wykształcenie inżynierskie z mechatroniki daje mi unikalne spojrzenie na rozwiązywanie złożonych problemów, łącząc wiedzę teoretyczną z praktycznym zastosowaniem.',
       'Moją pasją są uczenie maszynowe, przetwarzanie dźwięku i full-stack development. Uwielbiam tworzyć innowacyjne rozwiązania łączące AI z dopracowanym doświadczeniem użytkownika - zarówno przy budowie inteligentnych systemów, jak i estetycznych aplikacji webowych.',
     ],
     educationTitle: 'Wykształcenie',
@@ -54,7 +46,7 @@ const content = {
     ],
     stats: {
       projects: 'Zrealizowanych projektów',
-      technologies: 'Opanowanych technologii',
+      clients: 'Zadowolonych klientów',
       experience: 'Lata doświadczenia',
     },
   },
@@ -67,115 +59,54 @@ const educationMeta = [
 ];
 
 const About = () => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
   const { language } = useLanguage();
   const t = content[language];
 
-  const education = t.education.map((edu, index) => ({
-    ...edu,
-    ...educationMeta[index],
-    icon: <GraduationCap className="w-6 h-6" />,
-  }));
+  const education = t.education.map((edu, index) => ({ ...edu, ...educationMeta[index] }));
+
+  const stats = [
+    { value: '20+', label: t.stats.projects },
+    { value: '10+', label: t.stats.clients },
+    { value: '3+', label: t.stats.experience },
+  ];
 
   return (
-    <section id="about" className="section-container bg-transparent">
-      <div ref={ref}>
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.5 }}
-          className="text-center mb-16"
-        >
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            {t.heading} <span className="gradient-text">{t.headingAccent}</span>
-          </h2>
-          <div className="w-20 h-1 bg-gradient-to-r from-baby-blue to-blue-500 mx-auto rounded-full" />
-        </motion.div>
+    <section id="about" className="section rule">
+      <div className="grid-12">
+        <h2 className="section-heading">{t.heading}</h2>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
-          {/* Description */}
-          <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="space-y-6"
-          >
-            <div className="glass-card p-8">
-              <h3 className="text-2xl font-bold mb-4 gradient-text">
-                {t.cardTitle}
-              </h3>
-              <p className="text-text-secondary leading-relaxed mb-4">
-                {t.paragraphs[0]}
-              </p>
-              <p className="text-text-secondary leading-relaxed">
-                {t.paragraphs[1]}
-              </p>
-            </div>
-          </motion.div>
+        <div className="section-body">
+          <p className="font-display font-normal text-lead md:text-title max-w-[46rem] mb-8">
+            {t.paragraphs[0]}
+          </p>
+          <p className="max-w-measure text-ink/75">
+            {t.paragraphs[1]}
+          </p>
 
-          {/* Education Timeline */}
-          <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.5, delay: 0.4 }}
-            className="space-y-6"
-          >
-            <h3 className="text-2xl font-bold mb-6 gradient-text">{t.educationTitle}</h3>
-            <div className="space-y-6">
-              {education.map((edu, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={isInView ? { opacity: 1, y: 0 } : {}}
-                  transition={{ duration: 0.5, delay: 0.2 * index }}
-                  className="glass-card p-6 hover:shadow-lg hover:shadow-baby-blue/10 transition-all duration-300"
-                >
-                  <div className="flex items-start space-x-4">
-                    <div className="p-3 rounded-lg bg-baby-blue/10 text-baby-blue flex-shrink-0">
-                      {edu.icon}
-                    </div>
-                    <div className="flex-1">
-                      <h4 className="font-semibold text-lg mb-1 text-text-primary">
-                        {edu.school}
-                      </h4>
-                      <p className="text-baby-blue mb-1">{edu.degree}</p>
-                      <div className="flex items-center gap-2">
-                        <p className="text-sm text-text-secondary">{edu.period}</p>
-                        {edu.completed && (
-                          <span className="px-2 py-0.5 text-xs rounded-full bg-green-500/20 border border-green-400/30 text-green-400">
-                            {t.completed}
-                          </span>
-                        )}
-                      </div>
-                    </div>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
-        </div>
+          <dl className="grid grid-cols-3 gap-6 mt-16 rule pt-4">
+            {stats.map((stat) => (
+              <div key={stat.label} className="flex flex-col-reverse justify-end gap-2">
+                <dt className="meta-label">{stat.label}</dt>
+                <dd className="font-display font-bold text-heading text-signal">{stat.value}</dd>
+              </div>
+            ))}
+          </dl>
 
-        {/* Statistics with Animated Counters */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <StatCard
-            end={10}
-            label={t.stats.projects}
-            icon={<Code className="w-8 h-8" />}
-            color="from-baby-blue to-blue-400"
-          />
-          <StatCard
-            end={20}
-            label={t.stats.technologies}
-            icon={<TrendingUp className="w-8 h-8" />}
-            color="from-blue-400 to-purple-400"
-          />
-          <StatCard
-            end={3}
-            label={t.stats.experience}
-            icon={<Award className="w-8 h-8" />}
-            color="from-purple-400 to-pink-400"
-          />
+          <h3 className="font-display font-normal text-lead mt-20 mb-4">{t.educationTitle}</h3>
+          <ul>
+            {education.map((edu) => (
+              <li key={edu.school} className="grid grid-cols-4 md:grid-cols-8 gap-x-6 gap-y-1 rule py-4">
+                <span className="col-span-4 md:col-span-2 meta-label pt-0.5">
+                  {edu.period}
+                  {edu.completed && <span className="ml-3">{t.completed}</span>}
+                </span>
+                <span className="col-span-4 md:col-span-3 font-bold">{edu.school}</span>
+                <span className="col-span-4 md:col-span-3 text-ink/75">{edu.degree}</span>
+              </li>
+            ))}
+          </ul>
+
+          <Experience />
         </div>
       </div>
     </section>

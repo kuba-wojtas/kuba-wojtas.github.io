@@ -1,31 +1,16 @@
-import { motion } from 'framer-motion';
-import { useInView } from 'framer-motion';
-import { useRef } from 'react';
-import {
-  Brain,
-  Code2,
-  Sparkles,
-  Music,
-  Database,
-  Languages,
-  Users
-} from 'lucide-react';
-import SkillCard from '../components/SkillCard';
 import { useLanguage } from '../i18n/LanguageContext';
 
 const content = {
   en: {
-    heading: 'Skills &',
-    headingAccent: 'Expertise',
-    hoverHint: 'Hover to see technologies',
+    heading: 'Skills & expertise',
     titles: {
-      dataScience: 'DATA SCIENCE & ML',
-      web: 'WEB DEVELOPMENT',
-      ai: 'AI & LLM ENGINEERING',
-      audio: 'AUDIO ENGINEERING',
-      databases: 'DATABASES & TOOLS',
-      languages: 'LANGUAGES',
-      softSkills: 'SOFT SKILLS',
+      dataScience: 'Data science & ML',
+      web: 'Web development',
+      ai: 'AI & LLM engineering',
+      audio: 'Audio engineering',
+      databases: 'Databases & tools',
+      languages: 'Languages',
+      softSkills: 'Soft skills',
     },
     languages: [
       'Polish (Native)',
@@ -42,17 +27,15 @@ const content = {
     ],
   },
   pl: {
-    heading: 'Umiejętności i',
-    headingAccent: 'Kompetencje',
-    hoverHint: 'Najedź, aby zobaczyć technologie',
+    heading: 'Umiejętności i kompetencje',
     titles: {
-      dataScience: 'DATA SCIENCE I ML',
-      web: 'WEB DEVELOPMENT',
-      ai: 'AI I INŻYNIERIA LLM',
-      audio: 'INŻYNIERIA DŹWIĘKU',
-      databases: 'BAZY DANYCH I NARZĘDZIA',
-      languages: 'JĘZYKI',
-      softSkills: 'UMIEJĘTNOŚCI MIĘKKIE',
+      dataScience: 'Data science i ML',
+      web: 'Web development',
+      ai: 'AI i inżynieria LLM',
+      audio: 'Inżynieria dźwięku',
+      databases: 'Bazy danych i narzędzia',
+      languages: 'Języki',
+      softSkills: 'Umiejętności miękkie',
     },
     languages: [
       'Polski (ojczysty)',
@@ -71,16 +54,12 @@ const content = {
 };
 
 const Skills = () => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
   const { language } = useLanguage();
   const t = content[language];
 
   const skillCategories = [
     {
       title: t.titles.dataScience,
-      icon: <Brain className="w-8 h-8" />,
-      color: 'from-baby-blue to-blue-500',
       skills: [
         'Python',
         'PyTorch',
@@ -96,8 +75,6 @@ const Skills = () => {
     },
     {
       title: t.titles.web,
-      icon: <Code2 className="w-8 h-8" />,
-      color: 'from-blue-500 to-purple-500',
       skills: [
         'React',
         'Next.js',
@@ -115,8 +92,6 @@ const Skills = () => {
     },
     {
       title: t.titles.ai,
-      icon: <Sparkles className="w-8 h-8" />,
-      color: 'from-cyan-400 to-blue-500',
       skills: [
         'LangChain',
         'RAG',
@@ -128,8 +103,6 @@ const Skills = () => {
     },
     {
       title: t.titles.audio,
-      icon: <Music className="w-8 h-8" />,
-      color: 'from-purple-500 to-pink-500',
       skills: [
         'C++',
         'JUCE Framework',
@@ -140,8 +113,6 @@ const Skills = () => {
     },
     {
       title: t.titles.databases,
-      icon: <Database className="w-8 h-8" />,
-      color: 'from-pink-500 to-red-500',
       skills: [
         'SQL',
         'PostgreSQL',
@@ -160,78 +131,31 @@ const Skills = () => {
     },
     {
       title: t.titles.languages,
-      icon: <Languages className="w-8 h-8" />,
-      color: 'from-red-500 to-orange-500',
       skills: t.languages
     },
     {
       title: t.titles.softSkills,
-      icon: <Users className="w-8 h-8" />,
-      color: 'from-orange-500 to-yellow-500',
       skills: t.softSkills
     }
   ];
 
-  // Center the last card when it ends up alone in the final row of the 3-column grid
-  const isLoneLastCard = (index) =>
-    index === skillCategories.length - 1 && skillCategories.length % 3 === 1;
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { y: 20, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: { duration: 0.5 },
-    },
-  };
-
   return (
-    <section id="skills" className="section-container bg-gray-900/20 backdrop-blur-sm">
-      <div ref={ref}>
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.5 }}
-          className="text-center mb-16"
-        >
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            {t.heading} <span className="gradient-text">{t.headingAccent}</span>
-          </h2>
-          <div className="w-20 h-1 bg-gradient-to-r from-baby-blue to-blue-500 mx-auto rounded-full" />
-        </motion.div>
+    <section id="skills" className="section bg-ink-soft text-paper">
+      <div className="grid-12">
+        <h2 className="section-heading">{t.heading}</h2>
 
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
-        >
-          {skillCategories.map((category, index) => (
-            <motion.div
-              key={index}
-              variants={itemVariants}
-              className={isLoneLastCard(index) ? 'lg:col-start-2' : ''}
-            >
-              <SkillCard
-                title={category.title}
-                icon={category.icon}
-                technologies={category.skills}
-                color={category.color}
-                hint={t.hoverHint}
-              />
-            </motion.div>
+        <div className="section-body grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-x-6 gap-y-12">
+          {skillCategories.map((category) => (
+            <div key={category.title} className="border-t-2 border-signal pt-4">
+              <h3 className="font-display font-bold text-lead mb-4">{category.title}</h3>
+              <ul className="text-stone space-y-1">
+                {category.skills.map((skill) => (
+                  <li key={skill}>{skill}</li>
+                ))}
+              </ul>
+            </div>
           ))}
-        </motion.div>
+        </div>
       </div>
     </section>
   );

@@ -1,103 +1,33 @@
-import { Github, Linkedin, Mail, Heart } from 'lucide-react';
-import { motion } from 'framer-motion';
 import { useLanguage } from '../i18n/LanguageContext';
 
 const content = {
   en: {
     tagline: 'Full-Stack Developer & Data Scientist',
     rights: 'All rights reserved.',
-    madeWith: 'Made with',
-    using: 'using React + Three.js',
+    backToTop: 'Back to top',
   },
   pl: {
     tagline: 'Full-Stack Developer & Data Scientist',
     rights: 'Wszelkie prawa zastrzeżone.',
-    madeWith: 'Stworzone z',
-    using: 'w React + Three.js',
+    backToTop: 'Wróć na górę',
   },
 };
 
 const Footer = () => {
   const { language } = useLanguage();
   const t = content[language];
-  const socialLinks = [
-    {
-      icon: <Github className="w-5 h-5" />,
-      href: 'https://github.com/kuba-wojtas',
-      label: 'GitHub',
-      color: 'hover:text-baby-blue'
-    },
-    {
-      icon: <Linkedin className="w-5 h-5" />,
-      href: 'https://www.linkedin.com/in/jakub-wojtas-220b503a5/',
-      label: 'LinkedIn',
-      color: 'hover:text-baby-blue'
-    },
-    {
-      icon: <Mail className="w-5 h-5" />,
-      href: 'mailto:contact@jakubwojtas.com',
-      label: 'Email',
-      color: 'hover:text-baby-blue'
-    },
-  ];
 
   return (
-    <footer className="bg-dark-card border-t border-white/5 mt-auto">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
-          {/* Logo & Description */}
-          <div className="text-center md:text-left">
-            <div className="flex items-center justify-center md:justify-start space-x-2 mb-3">
-              <img
-                src="/projects/prof_blue.png"
-                alt="JW"
-                className="w-10 h-10 rounded-full object-cover border-2 border-baby-blue shadow-lg shadow-baby-blue/30"
-              />
-              <span className="text-xl font-bold gradient-text">
-                Jakub Wojtas
-              </span>
-            </div>
-            <p className="text-text-secondary text-sm">
-              {t.tagline}
-            </p>
-          </div>
-
-          {/* Social Links */}
-          <div className="flex justify-center space-x-6">
-            {socialLinks.map((social, index) => (
-              <motion.a
-                key={social.label}
-                href={social.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                whileHover={{ scale: 1.1, y: -2 }}
-                whileTap={{ scale: 0.95 }}
-                className={`p-3 rounded-full bg-dark-bg/50 text-text-secondary transition-colors ${social.color}`}
-                aria-label={social.label}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1 }}
-              >
-                {social.icon}
-              </motion.a>
-            ))}
-          </div>
-
-          {/* Copyright */}
-          <div className="text-center md:text-right">
-            <p className="text-text-secondary text-sm mb-2">
-              &copy; 2024 Jakub Wojtas. {t.rights}
-            </p>
-            <p className="text-text-secondary text-xs flex items-center justify-center md:justify-end gap-1">
-              {t.madeWith} <Heart className="w-3 h-3 text-baby-blue fill-current" /> {t.using}
-            </p>
-          </div>
-        </div>
-
-        {/* Bottom Border Gradient */}
-        <div className="mt-8 pt-8 border-t border-white/5">
-          <div className="h-1 w-full bg-gradient-to-r from-transparent via-baby-blue to-transparent rounded-full opacity-50" />
-        </div>
+    <footer className="bg-ink-soft text-stone page-x">
+      <div className="grid-12 border-t border-paper/30 py-6 gap-y-2 text-label">
+        <p className="col-span-4 md:col-span-4">
+          <span className="block text-paper font-bold">Jakub Wojtas</span>
+          {t.tagline}
+        </p>
+        <p className="col-span-4 md:col-span-4">&copy; 2026 Jakub Wojtas. {t.rights}</p>
+        <a href="#top" onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0 }); }} className="col-span-4 md:col-span-4 md:text-right hover:text-signal">
+          {t.backToTop}
+        </a>
       </div>
     </footer>
   );

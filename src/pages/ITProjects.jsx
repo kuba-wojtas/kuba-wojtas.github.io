@@ -1,5 +1,3 @@
-import { motion } from 'framer-motion';
-import { FileText, CheckCircle } from 'lucide-react';
 import { useState } from 'react';
 import Lightbox from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
@@ -7,17 +5,16 @@ import { useLanguage } from '../i18n/LanguageContext';
 
 const content = {
   en: {
-    heading: 'IT Projects &',
-    headingAccent: 'Data Science Work',
+    heading: 'IT projects & data science work',
     intro: 'Showcase of my work in machine learning, web development, and data analysis',
-    keyFeatures: 'Key Features',
-    keyAchievements: 'Key Achievements',
-    technologiesUsed: 'Technologies Used',
+    keyFeatures: 'Key features',
+    keyAchievements: 'Key achievements',
+    technologiesUsed: 'Technologies used',
     screenshots: 'Screenshots',
     screenshot: 'Screenshot',
     clickToEnlarge: 'Click to enlarge',
     pdfOnRequest: 'PDF available on request',
-    pdfButton: 'PDF (Available on request)',
+    pdfButton: 'PDF (available on request)',
     projects: {
       rag: {
         title: 'AI Knowledge Assistant (RAG)',
@@ -39,7 +36,7 @@ const content = {
         ]
       },
       ePrescription: {
-        title: 'E-Prescription System - Medical Practice',
+        title: 'E-Prescription System',
         subtitle: 'Client Project · GDPR-Compliant Telemedicine Platform',
         description: 'GDPR-compliant web platform for online medical consultations with e-prescription issuing, delivered for a client together with a dedicated website and CMS. Configured secure server infrastructure (Ubuntu VPS, nginx, SSL, encrypted database) for handling sensitive data. Implemented the full patient/doctor workflow: intake form, payment (Stripe/BLIK), e-prescription code delivery via SMS, and transactional email.',
         additionalInfo: 'End-to-end delivery for a medical practice client - from the public website and CMS, through the online consultation and payment flow, to the secure server infrastructure handling sensitive medical data in line with GDPR.',
@@ -59,7 +56,7 @@ const content = {
         ]
       },
       mailflow: {
-        title: 'Multiplatform Local-First Email Client (MailFlow)',
+        title: 'Multiplatform Local-First Email Client',
         subtitle: 'Privacy-First Desktop App with On-Device AI',
         description: 'Cross-platform desktop email client focused on privacy and data sovereignty, aimed at B2B customers in the EU. Architected with Tauri 2.0 and Rust for a lightweight, secure native shell, with a React/TypeScript frontend. Implemented encrypted local storage (SQLCipher) and on-device AI features via Ollama, so user data stays fully local (GDPR-compliant).',
         additionalInfo: 'Designed as a private alternative to cloud email clients for businesses that do not want their correspondence processed by third-party cloud providers. Local AI running on the user\'s device is the key differentiator.',
@@ -134,7 +131,7 @@ const content = {
         ]
       },
       equalizer: {
-        title: 'Professional Audio Equalizer Plugin',
+        title: 'Audio Equalizer Plugin',
         subtitle: 'VST3 Plugin - Bachelor\'s Thesis',
         description: 'Three-band parametric equalizer plugin in VST3 standard using JUCE framework. Features real-time spectrum analyzer, adjustable slopes (12-48dB/Oct), peak filter with variable Q-factor, and low-latency processing. Supports major DAWs including FL Studio, Logic Pro, and Ableton Live.',
         additionalInfo: 'Professional-grade audio plugin implementing three-band parametric equalization. Bachelor\'s thesis project demonstrating advanced DSP techniques and real-time audio processing capabilities.',
@@ -154,8 +151,7 @@ const content = {
     },
   },
   pl: {
-    heading: 'Projekty IT i',
-    headingAccent: 'Data Science',
+    heading: 'Projekty IT i data science',
     intro: 'Przegląd moich prac z zakresu uczenia maszynowego, web developmentu i analizy danych',
     keyFeatures: 'Kluczowe funkcje',
     keyAchievements: 'Kluczowe osiągnięcia',
@@ -186,7 +182,7 @@ const content = {
         ]
       },
       ePrescription: {
-        title: 'System e-recept - praktyka lekarska',
+        title: 'System e-recept',
         subtitle: 'Projekt dla klienta · Platforma telemedyczna zgodna z RODO',
         description: 'Zgodna z RODO platforma webowa do konsultacji medycznych online z wystawianiem e-recept, zrealizowana dla klienta wraz z dedykowaną stroną i systemem CMS. Skonfigurowana bezpieczna infrastruktura serwerowa (Ubuntu VPS, nginx, SSL, szyfrowana baza danych) do obsługi danych wrażliwych. Zaimplementowany pełny workflow pacjent/lekarz: formularz zgłoszeniowy, płatność (Stripe/BLIK), dostarczenie kodu e-recepty SMS-em i e-mail transakcyjny.',
         additionalInfo: 'Kompleksowa realizacja dla klienta z branży medycznej - od publicznej strony i CMS, przez proces konsultacji online i płatności, po bezpieczną infrastrukturę serwerową przetwarzającą wrażliwe dane medyczne zgodnie z RODO.',
@@ -206,7 +202,7 @@ const content = {
         ]
       },
       mailflow: {
-        title: 'Wieloplatformowy klient poczty Local-First (MailFlow)',
+        title: 'Wieloplatformowy klient poczty Local-First',
         subtitle: 'Desktopowa aplikacja z AI działającym na urządzeniu',
         description: 'Wieloplatformowy desktopowy klient poczty skoncentrowany na prywatności i suwerenności danych, kierowany do klientów B2B w UE. Architektura oparta na Tauri 2.0 i Rust zapewnia lekką, bezpieczną natywną powłokę, a frontend powstał w React/TypeScript. Zaimplementowane szyfrowane lokalne przechowywanie danych (SQLCipher) oraz funkcje AI działające na urządzeniu przez Ollama - dane użytkownika pozostają w pełni lokalne (zgodność z RODO).',
         additionalInfo: 'Zaprojektowany jako prywatna alternatywa dla chmurowych klientów poczty dla firm, które nie chcą, aby ich korespondencja była przetwarzana przez zewnętrznych dostawców chmury. Głównym wyróżnikiem jest lokalne AI działające na urządzeniu użytkownika.',
@@ -281,7 +277,7 @@ const content = {
         ]
       },
       equalizer: {
-        title: 'Profesjonalny plugin korektora audio',
+        title: 'Plugin korektora audio',
         subtitle: 'Plugin VST3 - praca inżynierska',
         description: 'Trójpasmowy korektor parametryczny w standardzie VST3 zbudowany w frameworku JUCE. Zawiera analizator widma w czasie rzeczywistym, regulowane nachylenie filtrów (12-48 dB/okt.), filtr szczytowy ze zmienną dobrocią Q oraz przetwarzanie o niskich opóźnieniach. Obsługuje popularne DAW, w tym FL Studio, Logic Pro i Ableton Live.',
         additionalInfo: 'Profesjonalny plugin audio realizujący trójpasmową korekcję parametryczną. Projekt inżynierski prezentujący zaawansowane techniki DSP i przetwarzanie dźwięku w czasie rzeczywistym.',
@@ -305,30 +301,26 @@ const content = {
 // Language-independent project data; text comes from content[language].projects[key]
 const projectMeta = [
   {
-    key: 'rag',
-    tech: ['Python', 'FastAPI', 'LangChain', 'RAG', 'Vector Database', 'OpenAI API'],
-    gradient: 'from-cyan-500 to-blue-600',
+    key: 'ePrescription',
+    tech: ['WordPress', 'Gravity Forms', 'Stripe', 'RODO/GDPR Compliance', 'Linux VPS', 'nginx'],
     links: {},
     screenshotImages: []
   },
   {
-    key: 'ePrescription',
-    tech: ['WordPress', 'Gravity Forms', 'Stripe', 'RODO/GDPR Compliance', 'Linux VPS', 'nginx'],
-    gradient: 'from-teal-500 to-cyan-600',
+    key: 'rag',
+    tech: ['Python', 'FastAPI', 'LangChain', 'RAG', 'Vector Database', 'OpenAI API'],
     links: {},
     screenshotImages: []
   },
   {
     key: 'mailflow',
     tech: ['Tauri 2.0', 'Rust', 'React', 'TypeScript', 'SQLCipher', 'Ollama'],
-    gradient: 'from-indigo-500 to-blue-600',
     links: {},
     screenshotImages: []
   },
   {
     key: 'spotify',
     tech: ['Python', 'Spotify API', 'OpenAI API', 'Pandas', 'Streamlit', 'Plotly', 'scikit-learn'],
-    gradient: 'from-green-400 to-blue-500',
     links: {
       github: '#',
     },
@@ -341,7 +333,6 @@ const projectMeta = [
   {
     key: 'genreClassifier',
     tech: ['Python', 'PyTorch', 'CNN', 'Grad-CAM', 'GTZAN', 'NumPy', 'Librosa', 'Matplotlib'],
-    gradient: 'from-purple-500 to-pink-600',
     links: {
       github: '#',
       pdf: '#',
@@ -355,7 +346,6 @@ const projectMeta = [
   {
     key: 'rolnictwo',
     tech: ['React', 'Firebase', 'Firestore', 'Tailwind CSS', 'Firebase Auth', 'Firebase Hosting'],
-    gradient: 'from-green-500 to-emerald-600',
     links: {
       demo: '#',
       github: '#',
@@ -365,7 +355,6 @@ const projectMeta = [
   {
     key: 'equalizer',
     tech: ['C++', 'JUCE Framework', 'VST3', 'DSP', 'Real-time Audio', 'FFT Analysis'],
-    gradient: 'from-blue-500 to-cyan-600',
     links: {
       github: '#',
       pdf: '#',
@@ -377,6 +366,21 @@ const projectMeta = [
     ]
   }
 ];
+
+const FALLBACK_IMAGE = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="400" height="300"%3E%3Crect fill="%23D0C9C3" width="400" height="300"/%3E%3Ctext fill="%23131211" x="50%25" y="50%25" text-anchor="middle" dy=".3em"%3EImage not found%3C/text%3E%3C/svg%3E';
+
+function DetailList({ title, items }) {
+  return (
+    <div className="col-span-4">
+      <h3 className="meta-label mb-3">{title}</h3>
+      <ul className="space-y-2">
+        {items.map((item) => (
+          <li key={item} className="border-t border-ink/15 pt-2">{item}</li>
+        ))}
+      </ul>
+    </div>
+  );
+}
 
 const ITProjects = () => {
   const [lightboxOpen, setLightboxOpen] = useState(false);
@@ -394,151 +398,86 @@ const ITProjects = () => {
   const projects = projectMeta.map((project) => ({ ...project, ...t.projects[project.key] }));
 
   return (
-    <div className="min-h-screen pt-20 pb-16">
+    <div className="pt-16">
       {/* Header */}
-      <motion.div
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        className="section-container"
-      >
-        <div className="text-center mb-16">
-          <h1 className="text-4xl md:text-6xl font-bold mb-4">
-            {t.heading} <span className="gradient-text">{t.headingAccent}</span>
+      <header className="page-x pt-16 md:pt-24 pb-16 md:pb-24">
+        <div className="grid-12 gap-y-8">
+          <h1 className="col-span-4 md:col-span-10 font-display font-bold text-[clamp(3rem,9vw,9.5rem)] leading-[0.85] tracking-[-0.05em]">
+            {t.heading}
           </h1>
-          <div className="w-24 h-1 bg-gradient-to-r from-baby-blue to-blue-500 mx-auto rounded-full mb-4" />
-          <p className="text-text-secondary text-lg max-w-3xl mx-auto">
-            {t.intro}
-          </p>
+          <p className="col-span-4 md:col-start-9 md:col-span-4 text-lead">{t.intro}</p>
         </div>
+      </header>
 
-        {/* Projects Grid */}
-        <div className="space-y-16">
-          {projects.map((project, index) => (
-            <motion.div
-              key={project.key}
-              initial={{ opacity: 0, y: 50 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: index * 0.2 }}
-              className="glass-card p-8 md:p-12"
-            >
-              {/* Project Header */}
-              <div className={`h-2 w-24 bg-gradient-to-r ${project.gradient} rounded-full mb-6`} />
-
-              <h2 className="text-3xl md:text-4xl font-bold mb-2 text-text-primary">
+      {/* Projects */}
+      {projects.map((project) => (
+        <article key={project.key} className="section rule">
+          <div className="grid-12 gap-y-10">
+            <div className="col-span-4">
+              <h2 className="heading-mark font-display font-bold text-title md:text-[2.5rem] md:leading-[1] tracking-tight mb-4">
                 {project.title}
               </h2>
-              <p className={`text-lg font-semibold mb-6 bg-gradient-to-r ${project.gradient} bg-clip-text text-transparent`}>
-                {project.subtitle}
-              </p>
+              <p className="meta-label mb-8">{project.subtitle}</p>
 
-              {/* Main Description */}
-              <p className="text-text-secondary leading-relaxed mb-4">
-                {project.description}
-              </p>
-              <p className="text-text-secondary leading-relaxed mb-8">
-                {project.additionalInfo}
-              </p>
+              <h3 className="meta-label mb-2">{t.technologiesUsed}</h3>
+              <ul className="text-label space-y-0.5">
+                {project.tech.map((tech) => (
+                  <li key={tech}>{tech}</li>
+                ))}
+              </ul>
+            </div>
 
-              {/* Features/Achievements */}
-              {project.features && (
-                <div className="mb-8">
-                  <h3 className="text-xl font-bold mb-4 gradient-text">{t.keyFeatures}</h3>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                    {project.features.map((feature, featureIndex) => (
-                      <div key={featureIndex} className="flex items-start gap-3 p-3 rounded-lg bg-dark-bg/50">
-                        <CheckCircle className={`w-5 h-5 mt-0.5 flex-shrink-0 bg-gradient-to-r ${project.gradient} bg-clip-text text-transparent`} style={{WebkitTextFillColor: 'transparent', WebkitBackgroundClip: 'text', backgroundClip: 'text'}} />
-                        <span className="text-text-secondary text-sm">{feature}</span>
-                      </div>
-                    ))}
-                  </div>
+            <div className="col-span-4 md:col-span-8">
+              <p className="font-display font-normal text-lead max-w-[44rem] mb-6">{project.description}</p>
+              <p className="text-ink/75 max-w-measure mb-14">{project.additionalInfo}</p>
+
+              {(project.features || project.achievements) && (
+                <div className="grid grid-cols-4 md:grid-cols-8 gap-x-6 gap-y-10">
+                  {project.features && <DetailList title={t.keyFeatures} items={project.features} />}
+                  {project.achievements && <DetailList title={t.keyAchievements} items={project.achievements} />}
                 </div>
               )}
 
-              {project.achievements && (
-                <div className="mb-8">
-                  <h3 className="text-xl font-bold mb-4 gradient-text">{t.keyAchievements}</h3>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                    {project.achievements.map((achievement, achIndex) => (
-                      <div key={achIndex} className="flex items-start gap-3 p-3 rounded-lg bg-dark-bg/50">
-                        <CheckCircle className="w-5 h-5 mt-0.5 text-baby-blue flex-shrink-0" />
-                        <span className="text-text-secondary text-sm">{achievement}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {/* Tech Stack */}
-              <div className="mb-8">
-                <h3 className="text-xl font-bold mb-4 gradient-text">{t.technologiesUsed}</h3>
-                <div className="flex flex-wrap gap-3">
-                  {project.tech.map((tech, techIndex) => (
-                    <span
-                      key={techIndex}
-                      className="px-4 py-2 bg-dark-bg/70 text-baby-blue rounded-lg border border-baby-blue/30 font-medium text-sm"
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-              </div>
-
-              {/* Screenshots - only show if project has actual screenshots */}
-              {project.screenshotImages && project.screenshotImages.length > 0 && (
-                <div className="mb-8">
-                  <h3 className="text-xl font-bold mb-4 gradient-text">{t.screenshots}</h3>
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              {project.screenshotImages.length > 0 && (
+                <div className="mt-14">
+                  <h3 className="meta-label mb-3">{t.screenshots}</h3>
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
                     {project.screenshotImages.map((img, imgIndex) => (
-                      <div key={imgIndex} className="group relative">
-                        <motion.div
-                          whileHover={{ scale: 1.05 }}
-                          className="cursor-pointer overflow-hidden rounded-lg shadow-lg hover:shadow-baby-blue/50 transition-all duration-300"
+                      <figure key={img}>
+                        <button
                           onClick={() => openLightbox(project.screenshotImages, imgIndex)}
+                          className="group block w-full bg-stone"
+                          aria-label={`${t.clickToEnlarge}: ${project.screenshotCaptions?.[imgIndex] || `${t.screenshot} ${imgIndex + 1}`}`}
                         >
                           <img
                             src={img}
                             alt={project.screenshotCaptions?.[imgIndex] || `${t.screenshot} ${imgIndex + 1}`}
-                            className="w-full h-48 object-cover"
+                            className="w-full aspect-[4/3] object-cover grayscale group-hover:grayscale-0 transition-[filter] duration-300"
                             loading="lazy"
-                            onError={(e) => {
-                              e.target.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="400" height="300"%3E%3Crect fill="%23222" width="400" height="300"/%3E%3Ctext fill="%23666" x="50%25" y="50%25" text-anchor="middle" dy=".3em"%3EImage not found%3C/text%3E%3C/svg%3E';
-                            }}
+                            onError={(e) => { e.target.src = FALLBACK_IMAGE; }}
                           />
-                          <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                            <span className="text-white font-semibold">{t.clickToEnlarge}</span>
-                          </div>
-                        </motion.div>
+                        </button>
                         {project.screenshotCaptions?.[imgIndex] && (
-                          <p className="text-text-secondary text-sm text-center mt-2">
-                            {project.screenshotCaptions[imgIndex]}
-                          </p>
+                          <figcaption className="meta-label mt-2">{project.screenshotCaptions[imgIndex]}</figcaption>
                         )}
-                      </div>
+                      </figure>
                     ))}
                   </div>
                 </div>
               )}
 
-              {/* Links */}
-              <div className="flex flex-wrap gap-4">
-                {project.links.pdf && (
-                  <button
-                    disabled
-                    className="flex items-center gap-2 px-6 py-3 bg-dark-bg/50 text-text-secondary/50 font-semibold rounded-lg border border-white/10 cursor-not-allowed"
-                    title={t.pdfOnRequest}
-                  >
-                    <FileText className="w-5 h-5" />
+              {project.links.pdf && (
+                <p className="mt-10">
+                  <button disabled className="btn-secondary opacity-40 cursor-not-allowed hover:!border-ink hover:!text-ink" title={t.pdfOnRequest}>
                     {t.pdfButton}
                   </button>
-                )}
-              </div>
-            </motion.div>
-          ))}
-        </div>
-      </motion.div>
+                </p>
+              )}
+            </div>
+          </div>
+        </article>
+      ))}
 
-      {/* Lightbox */}
       <Lightbox
         open={lightboxOpen}
         close={() => setLightboxOpen(false)}
